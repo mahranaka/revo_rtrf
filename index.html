@@ -43,7 +43,7 @@
                 ⚔️ Ex-Revolution RWF Watch Party
             </h1>
             <span class="text-xs bg-red-950/80 text-red-300 border border-red-800/80 px-3 py-1 rounded-full font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md">
-                <span class="text-red-500">🚩</span> Dentarg Alumni
+                <span class="text-red-500">🚩</span> Ex-Revolution
             </span>
         </div>
         <div class="text-xs text-gray-400 flex items-center gap-2 bg-[#181616] px-3 py-1.5 rounded-full border border-[#383333]">
@@ -52,28 +52,19 @@
         </div>
     </header>
 
-    <!-- Top Standings News Ticker & RWF Event Feed Banner -->
-    <section class="bg-[#222020] border-b border-[#383333] py-3 px-4 w-full shadow-md flex flex-col xl:flex-row items-center justify-between gap-4 overflow-hidden">
+    <!-- Top Standings News Ticker Banner -->
+    <section class="bg-[#222020] border-b border-[#383333] py-2.5 px-4 w-full shadow-md flex items-center overflow-hidden">
         
-        <!-- Left: News Ticker -->
-        <div class="flex items-center w-full xl:flex-1 overflow-hidden">
-            <div class="px-3 py-1.5 bg-[#181616] rounded-lg border border-[#383333] z-10 flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400 whitespace-nowrap shadow-md shrink-0 mr-3">
-                🏆 STANDINGS FEED
-            </div>
-            <div class="overflow-hidden w-full relative flex items-center">
-                <div id="leaderboard-ticker-wrapper" class="w-full">
-                    <span class="text-xs text-gray-500 animate-pulse px-4">Calculating standings...</span>
-                </div>
-            </div>
+        <!-- Left Title Badge -->
+        <div class="px-3 py-1.5 bg-[#181616] rounded-lg border border-[#383333] z-10 flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400 whitespace-nowrap shadow-md shrink-0 mr-3">
+            🏆 LIVE STANDINGS
         </div>
 
-        <!-- Right: Unverändertes RWF Event Feed Widget (Exakt nach Vorlage-URL) -->
-        <div class="w-full xl:w-[500px] h-[150px] bg-[#181616] rounded-lg border border-[#383333] overflow-hidden flex justify-center items-center shrink-0 shadow-inner">
-            <iframe 
-                src="https://raider.io/widgets/rwf-event-feed?raid=latest&difficulty=latest&guild_ids=1577755%2C1642401%2C2072242&types=new_boss%2Cbest_percent%2Cboss_kill&chromargb=transparent" 
-                class="w-full h-full border-0"
-                title="RWF Event Feed">
-            </iframe>
+        <!-- Scrolling Ticker -->
+        <div class="overflow-hidden w-full relative flex items-center">
+            <div id="leaderboard-ticker-wrapper" class="w-full">
+                <span class="text-xs text-gray-500 animate-pulse px-4">Calculating standings...</span>
+            </div>
         </div>
 
     </section>
@@ -492,7 +483,7 @@
                 return a.worldRank - b.worldRank;
             });
 
-            // Render Horizontal Ticker mit 3 Wiederholungen und deutlichem Trenner
+            // Render Horizontal Ticker mit 3 Wiederholungen und unaufdringlichem Trenner
             const tickerWrapper = document.getElementById("leaderboard-ticker-wrapper");
             if (guildData.length > 0 && tickerWrapper) {
                 const singleSetHtml = guildData.map((g, idx) => `
@@ -505,11 +496,10 @@
                     </div>
                 `).join('');
 
+                // Trenner am Ende jeder Runde
                 const dividerHtml = `
-                    <div class="flex items-center gap-2 px-6 text-amber-500 font-bold text-xs uppercase tracking-widest shrink-0 opacity-80">
-                        <span>❖</span>
-                        <span class="border-y border-amber-500/40 py-0.5">STANDINGS FEED</span>
-                        <span>❖</span>
+                    <div class="flex items-center gap-2 px-6 text-amber-400/70 font-semibold text-xs tracking-widest shrink-0">
+                        <span>❖ REVOLUTION RWF ❖</span>
                     </div>
                 `;
 
