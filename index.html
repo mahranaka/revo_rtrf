@@ -49,7 +49,7 @@
     </section>
 
     <!-- Main Grid (Full Width) -->
-    <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+    <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full items-start">
 
         <!-- GUILD 1: Axon Terminal (Ex-Revo March) -->
         <section class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
@@ -227,6 +227,79 @@
             </div>
         </section>
 
+        <!-- GUILD 3: Welcome (Ex-Revo Sam & Treaderz) -->
+        <section class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative lg:col-span-1">
+            <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-xl font-bold text-amber-300">Welcome</h2>
+                        <span class="text-[10px] bg-red-950/80 text-red-300 border border-red-800/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                            Ex-Revo: Sam & Treaderz
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-400">EU – Argent Dawn | Streamer: Offline</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="https://raider.io/guilds/eu/argent-dawn/Welcome" 
+                       target="_blank" 
+                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
+                       Raider.IO ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stream Placeholder (No Streamers Active) -->
+            <div class="w-full aspect-video bg-[#181616] rounded-lg border border-[#383333] flex flex-col items-center justify-center gap-2 text-gray-500 p-6 text-center">
+                <span class="text-3xl">📡</span>
+                <span class="text-sm font-semibold text-gray-400">No active stream for Welcome</span>
+                <span class="text-xs text-gray-600">Tracking progress via Raider.IO live telemetry</span>
+            </div>
+
+            <!-- Live Overview Panel -->
+            <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded" id="status-welcome">Syncing...</span>
+                </div>
+                <div id="content-welcome" class="grid grid-cols-3 gap-2">
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
+                <!-- Boss Progress Tile -->
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
+                    <iframe 
+                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=argent-dawn&guild=Welcome&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
+                        class="w-full h-[280px] border-0"
+                        title="Welcome Raider.IO Progress">
+                    </iframe>
+                </div>
+                <!-- Scaled Health Over Attempt Chart -->
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
+                    <div class="w-[432px] h-[288px] overflow-hidden">
+                        <iframe 
+                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Fargent-dawn%2FWelcome&boss=latest" 
+                            class="rio-chart-scaler border-0"
+                            title="Welcome Health Over Attempt">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Large Guild Gear Composition Widget -->
+            <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex justify-center items-center overflow-hidden min-h-[220px]">
+                <iframe 
+                    src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=argent-dawn&guild=Welcome&scope=role&tier_placement=column&chromargb=transparent" 
+                    class="w-full h-[200px] border-0"
+                    title="Welcome Guild Gear Composition">
+                </iframe>
+            </div>
+        </section>
+
     </main>
 
     <script type="text/javascript">
@@ -355,6 +428,7 @@
 
             await fetchSingleGuild("eu", "tarren-mill", "Axon Terminal", "status-axon", "content-axon");
             await fetchSingleGuild("eu", "twisting-nether", "Save The Wife", "status-stw", "content-stw");
+            await fetchSingleGuild("eu", "argent-dawn", "Welcome", "status-welcome", "content-welcome");
 
             // Sort Guilds: Boss Kills Descending, World Rank Ascending
             guildData.sort((a, b) => {
