@@ -36,6 +36,18 @@
         </div>
     </header>
 
+    <!-- Top Standings Leaderboard Banner -->
+    <section class="bg-[#222020] border-b border-[#383333] px-6 py-3 w-full shadow-md">
+        <div class="max-w-[1920px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400">
+                🏆 Live Alumni Standings
+            </div>
+            <div id="leaderboard-container" class="flex flex-wrap items-center gap-4 text-sm w-full md:w-auto justify-center md:justify-end">
+                <span class="text-xs text-gray-500 animate-pulse">Calculating standings...</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Main Grid (Full Width) -->
     <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
 
@@ -288,8 +300,10 @@
             timerEl.textContent = `Next sync in ${countdown}s`;
         }, 1000);
 
-        // Fetch Live Guild Overview Stats
+        // Fetch Live Guild Overview Stats & Render Leaderboard
         async function updateGuildStats() {
+            const guildData = [];
+
             async function fetchSingleGuild(region, realm, guildName, statusId, contentId) {
                 const statusEl = document.getElementById(statusId);
                 const contentEl = document.getElementById(contentId);
@@ -326,14 +340,40 @@
                                 <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.realm : 'N/A'}</span>
                             </div>
                         `;
+
+                        guildData.push({
+                            name: guildName,
+                            kills: prog.mythic_bosses_killed,
+                            total: prog.total_bosses,
+                            worldRank: rankings ? rankings.world : 999999
+                        });
                     }
                 } catch (err) {
                     statusEl.textContent = "Offline";
                 }
             }
 
-            fetchSingleGuild("eu", "tarren-mill", "Axon Terminal", "status-axon", "content-axon");
-            fetchSingleGuild("eu", "twisting-nether", "Save The Wife", "status-stw", "content-stw");
+            await fetchSingleGuild("eu", "tarren-mill", "Axon Terminal", "status-axon", "content-axon");
+            await fetchSingleGuild("eu", "twisting-nether", "Save The Wife", "status-stw", "content-stw");
+
+            // Sort Guilds: Boss Kills Descending, World Rank Ascending
+            guildData.sort((a, b) => {
+                if (b.kills !== a.kills) return b.kills - a.kills;
+                return a.worldRank - b.worldRank;
+            });
+
+            // Render Leaderboard
+            const lbContainer = document.getElementById("leaderboard-container");
+            if (guildData.length > 0) {
+                lbContainer.innerHTML = guildData.map((g, idx) => `
+                    <div class="flex items-center gap-2 bg-[#181616] px-3 py-1 rounded-lg border border-[#383333]">
+                        <span class="font-black ${idx === 0 ? 'text-amber-400' : 'text-gray-400'}">#${idx + 1}</span>
+                        <span class="font-bold text-white">${g.name}</span>
+                        <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">${g.kills}/${g.total}M</span>
+                        <span class="text-xs text-gray-400">World #${g.worldRank === 999999 ? 'N/A' : g.worldRank}</span>
+                    </div>
+                `).join('');
+            }
         }
 
         updateGuildStats();
