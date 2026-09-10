@@ -69,11 +69,11 @@
 
     </section>
 
-    <!-- Main Grid (Flexbox Container mit Order-Sorting ohne DOM-Reflash) -->
+    <!-- Main Grid (Flexbox Container with Order-Sorting without DOM Reflash) -->
     <main id="guilds-grid" class="flex-1 p-4 md:p-6 flex flex-col lg:flex-row flex-wrap gap-6 w-full items-start">
 
         <!-- GUILD: Axon Terminal -->
-        <section id="panel-axon" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative">
+        <section id="panel-axon" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative scroll-mt-6">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
@@ -161,7 +161,7 @@
         </section>
 
         <!-- GUILD: Save The Wife -->
-        <section id="panel-stw" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative">
+        <section id="panel-stw" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative scroll-mt-6">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
@@ -261,7 +261,7 @@
         </section>
 
         <!-- GUILD: Welcome -->
-        <section id="panel-welcome" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative">
+        <section id="panel-welcome" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative scroll-mt-6">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
@@ -339,6 +339,29 @@
             </div>
         </section>
 
+        <!-- ADD GUILD SLOT (BIG PLUS SIGN) -->
+        <section id="panel-add-guild" class="bg-[#222020]/60 border-2 border-dashed border-[#383333] hover:border-amber-500/60 rounded-xl p-8 flex flex-col items-center justify-center gap-4 min-h-[600px] w-full lg:w-[calc(50%-12px)] transition group cursor-pointer shadow-xl relative">
+            
+            <a href="javascript:void(0)" onclick="sendGuildToDiscord()" class="flex flex-col items-center justify-center gap-4 text-center w-full h-full">
+                <!-- Big Plus Sign Icon -->
+                <div class="w-24 h-24 rounded-full bg-[#181616] border-2 border-[#383333] group-hover:border-amber-400 group-hover:bg-amber-500/10 flex items-center justify-center text-gray-400 group-hover:text-amber-400 text-6xl font-thin transition-all duration-300 shadow-2xl group-hover:scale-110">
+                    +
+                </div>
+                
+                <div class="space-y-1">
+                    <h3 class="text-xl font-bold text-gray-300 group-hover:text-amber-300 transition">Add Guild Panel</h3>
+                    <p class="text-xs text-gray-500 max-w-xs group-hover:text-gray-400 transition">
+                        Know another guild with former Ex-Revolution players competing in RWF?
+                    </p>
+                </div>
+
+                <div class="mt-2 inline-flex items-center gap-2 text-xs font-semibold bg-[#5865F2]/20 text-[#5865F2] group-hover:bg-[#5865F2] group-hover:text-white px-4 py-2 rounded-lg border border-[#5865F2]/40 transition">
+                    💬 Submit via Discord to Mahranaka
+                </div>
+            </a>
+
+        </section>
+
     </main>
 
     <script type="text/javascript">
@@ -350,6 +373,28 @@
             "Save The Wife": { members: "Zheen, Venzer", panelId: "panel-stw", badgeId: "rank-badge-stw" },
             "Welcome": { members: "Sam, Treaderz", panelId: "panel-welcome", badgeId: "rank-badge-welcome" }
         };
+
+        // Pre-formatted message trigger to Discord user Mahranaka
+        function sendGuildToDiscord() {
+            const discordUsername = "Mahranaka";
+            const message = "Hey Mahranaka! Here is info for a new Ex-Revo guild panel:\n\n- Guild Name: \n- Realm / Region: \n- Former Revo Players: \n- Raider.IO Link: ";
+            
+            // Copies template to clipboard for convenience
+            navigator.clipboard.writeText(message);
+            
+            // Opens Discord Web / App
+            const discordUrl = `https://discord.com/users/${discordUsername}`;
+            alert(`Message template copied to clipboard!\n\nOpening Discord profile for ${discordUsername}...`);
+            window.open(discordUrl, '_blank');
+        }
+
+        // Smooth Scroll Helper function
+        function scrollToPanel(panelId) {
+            const el = document.getElementById(panelId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
 
         // Init March Stream
         new Twitch.Player("twitch-embed-march", {
@@ -483,22 +528,22 @@
                 return a.worldRank - b.worldRank;
             });
 
-            // Render Horizontal Ticker mit 3 Wiederholungen und unaufdringlichem Trenner
+            // Render Horizontal Ticker with Click Functionality
             const tickerWrapper = document.getElementById("leaderboard-ticker-wrapper");
             if (guildData.length > 0 && tickerWrapper) {
                 const singleSetHtml = guildData.map((g, idx) => `
-                    <div class="flex items-center gap-2 bg-[#181616] px-3 py-1.5 rounded-lg border border-[#383333] shrink-0 mx-2 shadow-inner">
+                    <button onclick="scrollToPanel('${g.config.panelId}')" 
+                            class="flex items-center gap-2 bg-[#181616] hover:bg-[#2a2727] hover:border-amber-500/50 px-3 py-1.5 rounded-lg border border-[#383333] shrink-0 mx-2 shadow-inner transition cursor-pointer text-left">
                         <span class="font-black ${idx === 0 ? 'text-amber-400' : 'text-gray-400'}">#${idx + 1}</span>
                         <span class="font-bold text-white">${g.name}</span>
                         <span class="text-xs text-red-400 font-semibold">(${g.config.members})</span>
                         <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">${g.kills}/${g.total}M</span>
                         <span class="text-xs text-gray-400">World #${g.worldRank === 999999 ? 'N/A' : g.worldRank}</span>
-                    </div>
+                    </button>
                 `).join('');
 
-                // Trenner am Ende jeder Runde
                 const dividerHtml = `
-                    <div class="flex items-center gap-2 px-6 text-amber-400/70 font-semibold text-xs tracking-widest shrink-0">
+                    <div class="flex items-center gap-2 px-6 text-amber-400/70 font-semibold text-xs tracking-widest shrink-0 select-none">
                         <span>❖ REVOLUTION RWF ❖</span>
                     </div>
                 `;
@@ -514,7 +559,7 @@
                 `;
             }
 
-            // Dynamisch Panels via CSS Order sortieren
+            // Dynamically Sort Active Panels via CSS Order
             guildData.forEach((g, idx) => {
                 const rankNum = idx + 1;
                 
@@ -528,6 +573,12 @@
                     panelEl.style.order = rankNum;
                 }
             });
+
+            // Keep the 'Add Guild' slot positioned last in grid order
+            const addGuildPanel = document.getElementById("panel-add-guild");
+            if (addGuildPanel) {
+                addGuildPanel.style.order = guildData.length + 1;
+            }
         }
 
         updateGuildStats();
