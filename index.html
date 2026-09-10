@@ -17,16 +17,16 @@
             transform-origin: top left;
         }
 
-        /* News Ticker Scrolling Animation */
-        @keyframes ticker {
+        /* News Ticker Scrolling Animation (3 Repeats = Translate -66.66%) */
+        @keyframes ticker3 {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            100% { transform: translateX(-66.666%); }
         }
 
         .animate-ticker {
             display: flex;
             width: max-content;
-            animation: ticker 30s linear infinite;
+            animation: ticker3 45s linear infinite;
         }
 
         .animate-ticker:hover {
@@ -53,12 +53,12 @@
     </header>
 
     <!-- Top Standings News Ticker & RWF Event Feed Banner -->
-    <section class="bg-[#222020] border-b border-[#383333] py-2.5 px-4 w-full shadow-md flex flex-col xl:flex-row items-center justify-between gap-4 overflow-hidden">
+    <section class="bg-[#222020] border-b border-[#383333] py-3 px-4 w-full shadow-md flex flex-col xl:flex-row items-center justify-between gap-4 overflow-hidden">
         
-        <!-- Left: News Ticker -->
-        <div class="flex items-center w-full xl:w-auto overflow-hidden">
-            <div class="px-3 py-1 bg-[#181616] rounded-lg border border-[#383333] z-10 flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400 whitespace-nowrap shadow-md shrink-0 mr-2">
-                🏆 STANDINGS
+        <!-- Left: News Ticker mit 3 Wiederholungen & klarem Trenner -->
+        <div class="flex items-center w-full xl:flex-1 overflow-hidden">
+            <div class="px-3 py-1.5 bg-[#181616] rounded-lg border border-[#383333] z-10 flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400 whitespace-nowrap shadow-md shrink-0 mr-3">
+                🏆 STANDINGS FEED
             </div>
             <div class="overflow-hidden w-full relative flex items-center">
                 <div id="leaderboard-ticker-wrapper" class="w-full">
@@ -67,18 +67,18 @@
             </div>
         </div>
 
-        <!-- Right: Correctly Embedded RWF Event Feed Widget -->
-        <div class="w-full xl:w-[500px] h-[75px] bg-[#181616] rounded-lg border border-[#383333] overflow-hidden flex justify-center items-center shrink-0">
+        <!-- Right: RWF Event Feed Widget in korrekter Proportionalgröße (200px Höhe) -->
+        <div class="w-full xl:w-[580px] h-[200px] bg-[#181616] rounded-lg border border-[#383333] overflow-hidden flex justify-center items-center shrink-0 shadow-inner">
             <iframe 
-                src="https://raider.io/widgets/rwf-event-feed?raid=latest&difficulty=latest&guild_ids=1642401%2C2072242%2C1577755&types=new_boss%2Cbest_percent%2Cboss_kill&chromargb=transparent" 
-                class="w-full h-[75px] border-0"
+                src="https://raider.io/widgets/rwf-event-feed?raid=latest&difficulty=latest&guild_ids=1642401%2C2072242%2C1577755&types=new_boss%2Cbest_percent%2Cboss_kill%2Cfirst_pull&period=until_kill&chromargb=transparent" 
+                class="w-full h-[200px] border-0"
                 title="Alumni RWF Live Event Feed">
             </iframe>
         </div>
 
     </section>
 
-    <!-- Main Grid (Flexbox Container with Order-Sorting to Prevent DOM Reflash) -->
+    <!-- Main Grid (Flexbox Container mit Order-Sorting ohne DOM-Reflash) -->
     <main id="guilds-grid" class="flex-1 p-4 md:p-6 flex flex-col lg:flex-row flex-wrap gap-6 w-full items-start">
 
         <!-- GUILD: Axon Terminal -->
@@ -492,11 +492,11 @@
                 return a.worldRank - b.worldRank;
             });
 
-            // Render Horizontal Scrolling Ticker (Duplicated to allow seamless infinite loop)
+            // Render Horizontal Ticker mit 3 Wiederholungen und deutlichem Trenner
             const tickerWrapper = document.getElementById("leaderboard-ticker-wrapper");
             if (guildData.length > 0 && tickerWrapper) {
-                const itemsHtml = guildData.map((g, idx) => `
-                    <div class="flex items-center gap-2 bg-[#181616] px-3 py-1 rounded-lg border border-[#383333] shrink-0 mx-3 shadow-inner">
+                const singleSetHtml = guildData.map((g, idx) => `
+                    <div class="flex items-center gap-2 bg-[#181616] px-3 py-1.5 rounded-lg border border-[#383333] shrink-0 mx-2 shadow-inner">
                         <span class="font-black ${idx === 0 ? 'text-amber-400' : 'text-gray-400'}">#${idx + 1}</span>
                         <span class="font-bold text-white">${g.name}</span>
                         <span class="text-xs text-red-400 font-semibold">(${g.config.members})</span>
@@ -505,26 +505,36 @@
                     </div>
                 `).join('');
 
-                // Render two identical sets side by side to perform endless seamless ticker animation
+                // Trennelement am Ende jeder Wiederholung
+                const dividerHtml = `
+                    <div class="flex items-center gap-2 px-6 text-amber-500 font-bold text-xs uppercase tracking-widest shrink-0 opacity-80">
+                        <span>❖</span>
+                        <span class="border-y border-amber-500/40 py-0.5">STANDINGS FEED</span>
+                        <span>❖</span>
+                    </div>
+                `;
+
+                const blockHtml = `<div class="flex items-center">${singleSetHtml}${dividerHtml}</div>`;
+
+                // 3-fache Wiederholung
                 tickerWrapper.innerHTML = `
                     <div class="animate-ticker">
-                        <div class="flex items-center">${itemsHtml}</div>
-                        <div class="flex items-center">${itemsHtml}</div>
+                        ${blockHtml}
+                        ${blockHtml}
+                        ${blockHtml}
                     </div>
                 `;
             }
 
-            // Dynamically Sort Panels via CSS order (prevents Iframe/Stream reload)
+            // Dynamisch Panels via CSS Order sortieren
             guildData.forEach((g, idx) => {
                 const rankNum = idx + 1;
                 
-                // Update yellow badge inside panel header
                 const badgeEl = document.getElementById(g.config.badgeId);
                 if (badgeEl && badgeEl.textContent !== `#${rankNum}`) {
                     badgeEl.textContent = `#${rankNum}`;
                 }
 
-                // Update CSS Flex order
                 const panelEl = document.getElementById(g.config.panelId);
                 if (panelEl) {
                     panelEl.style.order = rankNum;
