@@ -48,11 +48,11 @@
         </div>
     </section>
 
-    <!-- Main Grid (Full Width Container for Dynamic Sorting) -->
-    <main id="guilds-grid" class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full items-start">
+    <!-- Main Grid (Flexbox Container with Order-Sorting to Prevent DOM Reflash) -->
+    <main id="guilds-grid" class="flex-1 p-4 md:p-6 flex flex-col lg:flex-row flex-wrap gap-6 w-full items-start">
 
         <!-- GUILD: Axon Terminal -->
-        <section id="panel-axon" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+        <section id="panel-axon" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
@@ -140,7 +140,7 @@
         </section>
 
         <!-- GUILD: Save The Wife -->
-        <section id="panel-stw" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+        <section id="panel-stw" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
@@ -240,7 +240,7 @@
         </section>
 
         <!-- GUILD: Welcome -->
-        <section id="panel-welcome" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+        <section id="panel-welcome" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
@@ -476,21 +476,20 @@
                 `).join('');
             }
 
-            // Re-order Panels in Main Grid & Update Yellow Rank Badges
-            const gridContainer = document.getElementById("guilds-grid");
+            // Dynamically Sort Panels without destroying/re-rendering DOM elements
             guildData.forEach((g, idx) => {
                 const rankNum = idx + 1;
                 
                 // Update yellow badge inside panel header
                 const badgeEl = document.getElementById(g.config.badgeId);
-                if (badgeEl) {
+                if (badgeEl && badgeEl.textContent !== `#${rankNum}`) {
                     badgeEl.textContent = `#${rankNum}`;
                 }
 
-                // Move panel element to enforce sorted order in Grid DOM
+                // Update CSS Flex order to re-arrange panels without reloading Twitch/Iframes
                 const panelEl = document.getElementById(g.config.panelId);
-                if (panelEl && gridContainer) {
-                    gridContainer.appendChild(panelEl);
+                if (panelEl) {
+                    panelEl.style.order = rankNum;
                 }
             });
         }
