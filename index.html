@@ -9,16 +9,16 @@
     <!-- Twitch Interactive Player API -->
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
-<body class="min-h-screen flex flex-col font-sans bg-gray-950">
+<body class="min-h-screen flex flex-col font-sans bg-gray-950 text-gray-100">
 
     <!-- Header -->
     <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between shadow-lg">
-        <h1 class="text-2xl font-bold text-amber-400 tracking-wide">
+        <h1 class="text-2xl font-bold text-amber-400 tracking-wide flex items-center gap-2">
             ⚔️ Race to World First — Live Tracker
         </h1>
-        <div class="text-sm text-gray-400 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Option B: Native Replica Tile Active
+        <div class="text-xs text-gray-400 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Auto-Syncing Every 30s
         </div>
     </header>
 
@@ -32,51 +32,66 @@
                     <h2 class="text-xl font-bold text-amber-300">Axon Terminal</h2>
                     <p class="text-xs text-gray-400">EU – Tarren Mill | Streamer: March</p>
                 </div>
-                <a href="https://www.warcraftlogs.com/guild/progress/605355?zone=53" 
-                   target="_blank" 
-                   class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
-                   Full WCL Page ↗
-                </a>
+                <div class="flex gap-2">
+                    <button onclick="toggleChat('chat-march')" 
+                            class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 px-3 py-1.5 rounded transition">
+                        💬 Toggle Chat
+                    </button>
+                    <a href="https://www.warcraftlogs.com/guild/progress/605355?zone=53" 
+                       target="_blank" 
+                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
+                       Full WCL ↗
+                    </a>
+                </div>
             </div>
 
-            <!-- Twitch Video Stream Container -->
-            <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
-                <div id="twitch-embed-march" class="w-full h-full"></div>
+            <!-- Video + Collapsible Chat Container -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div id="container-march" class="md:col-span-3 transition-all duration-300">
+                    <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
+                        <div id="twitch-embed-march" class="w-full h-full"></div>
+                    </div>
+                </div>
+                <div id="chat-march" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-gray-800">
+                    <iframe id="twitch-chat-march-frame" class="w-full h-full border-0"></iframe>
+                </div>
             </div>
 
-            <!-- Working Live Progress Overview Panel -->
-            <div id="widget-axon" class="bg-gray-950 rounded-lg border border-gray-800 p-4 flex flex-col gap-3">
+            <!-- Live Overview Panel -->
+            <div class="bg-gray-950 rounded-lg border border-gray-800 p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
-                    <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded" id="status-axon">Syncing...</span>
+                    <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded" id="status-axon">Syncing...</span>
                 </div>
-                <div id="content-axon" class="space-y-2">
-                    <div class="p-3 bg-gray-900 rounded border border-gray-800 animate-pulse text-xs text-gray-400">Loading Stats...</div>
+                <div id="content-axon" class="grid grid-cols-3 gap-2">
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
                 </div>
             </div>
 
-            <!-- Option B: Native Replica Progress Tile -->
-            <div id="replica-tile-axon" class="relative w-full h-[180px] bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-inner flex flex-col justify-between p-5 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(17, 24, 39, 0.85), rgba(17, 24, 39, 0.4)), url('https://assets.rpglogs.com/img/warcraft/banners/18.jpg');">
+            <!-- Native Replica Progress Tile -->
+            <div id="replica-tile-axon" class="relative w-full h-[180px] bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-2xl flex flex-col justify-between p-5 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(10, 15, 30, 0.9), rgba(10, 15, 30, 0.5)), url('https://assets.rpglogs.com/img/warcraft/banners/18.jpg');">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h3 class="text-2xl font-black text-white tracking-wider uppercase border-b-2 border-red-600 pb-1 inline-block">
+                        <h3 class="text-2xl font-black text-white tracking-wider uppercase border-b-2 border-red-600 pb-0.5 inline-block drop-shadow-md">
                             Axon Terminal
                         </h3>
                     </div>
-                    <div class="bg-black/60 p-1.5 rounded-full border border-gray-700">
+                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md">
                         <img src="https://assets.rpglogs.com/img/warcraft/faction-1.png" alt="Horde" class="w-6 h-6">
                     </div>
                 </div>
 
                 <div class="flex justify-between items-end">
                     <div>
-                        <span class="text-[10px] uppercase font-bold text-gray-300 tracking-widest block">PROGRESS</span>
-                        <span class="text-3xl font-extrabold text-white" id="tile-prog-axon">5 / 8M</span>
+                        <span class="text-[10px] uppercase font-bold text-gray-300 tracking-widest block drop-shadow">PROGRESS</span>
+                        <span class="text-3xl font-extrabold text-white drop-shadow-md" id="tile-prog-axon">5 / 8M</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-xs font-black text-gray-200 tracking-wider block" id="tile-pulls-axon">PULLS: 78</span>
-                        <span class="text-xs font-black text-gray-200 tracking-wider block" id="tile-best-axon">BEST: 7.56%</span>
-                        <span class="text-xl font-black text-white uppercase tracking-wide block mt-1" id="tile-boss-axon">THE TWIN FANGS</span>
+                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-pulls-axon">PULLS: --</span>
+                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-best-axon">BEST: --%</span>
+                        <span class="text-xl font-black text-white uppercase tracking-wide block mt-0.5 drop-shadow-md" id="tile-boss-axon">CURRENT BOSS</span>
                     </div>
                 </div>
             </div>
@@ -89,51 +104,66 @@
                     <h2 class="text-xl font-bold text-amber-300">Save The Wife</h2>
                     <p class="text-xs text-gray-400">EU – Twisting Nether | Streamer: Zheen & Venzer</p>
                 </div>
-                <a href="https://www.warcraftlogs.com/guild/id/767263" 
-                   target="_blank" 
-                   class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
-                   Full WCL Page ↗
-                </a>
+                <div class="flex gap-2">
+                    <button onclick="toggleChat('chat-zheen')" 
+                            class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 px-3 py-1.5 rounded transition">
+                        💬 Toggle Chat
+                    </button>
+                    <a href="https://www.warcraftlogs.com/guild/id/767263" 
+                       target="_blank" 
+                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
+                       Full WCL ↗
+                    </a>
+                </div>
             </div>
 
-            <!-- Twitch Video Stream Container -->
-            <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
-                <div id="twitch-embed-zheen" class="w-full h-full"></div>
+            <!-- Video + Collapsible Chat Container -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div id="container-zheen" class="md:col-span-3 transition-all duration-300">
+                    <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
+                        <div id="twitch-embed-zheen" class="w-full h-full"></div>
+                    </div>
+                </div>
+                <div id="chat-zheen" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-gray-800">
+                    <iframe id="twitch-chat-zheen-frame" class="w-full h-full border-0"></iframe>
+                </div>
             </div>
 
-            <!-- Working Live Progress Overview Panel -->
-            <div id="widget-stw" class="bg-gray-950 rounded-lg border border-gray-800 p-4 flex flex-col gap-3">
+            <!-- Live Overview Panel -->
+            <div class="bg-gray-950 rounded-lg border border-gray-800 p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
-                    <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded" id="status-stw">Syncing...</span>
+                    <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded" id="status-stw">Syncing...</span>
                 </div>
-                <div id="content-stw" class="space-y-2">
-                    <div class="p-3 bg-gray-900 rounded border border-gray-800 animate-pulse text-xs text-gray-400">Loading Stats...</div>
+                <div id="content-stw" class="grid grid-cols-3 gap-2">
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
                 </div>
             </div>
 
-            <!-- Option B: Native Replica Progress Tile -->
-            <div id="replica-tile-stw" class="relative w-full h-[180px] bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-inner flex flex-col justify-between p-5 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(17, 24, 39, 0.85), rgba(17, 24, 39, 0.4)), url('https://assets.rpglogs.com/img/warcraft/banners/18.jpg');">
+            <!-- Native Replica Progress Tile -->
+            <div id="replica-tile-stw" class="relative w-full h-[180px] bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-2xl flex flex-col justify-between p-5 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(10, 15, 30, 0.9), rgba(10, 15, 30, 0.5)), url('https://assets.rpglogs.com/img/warcraft/banners/18.jpg');">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h3 class="text-2xl font-black text-white tracking-wider uppercase border-b-2 border-red-600 pb-1 inline-block">
+                        <h3 class="text-2xl font-black text-white tracking-wider uppercase border-b-2 border-red-600 pb-0.5 inline-block drop-shadow-md">
                             Save The Wife
                         </h3>
                     </div>
-                    <div class="bg-black/60 p-1.5 rounded-full border border-gray-700">
+                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md">
                         <img src="https://assets.rpglogs.com/img/warcraft/faction-1.png" alt="Horde" class="w-6 h-6">
                     </div>
                 </div>
 
                 <div class="flex justify-between items-end">
                     <div>
-                        <span class="text-[10px] uppercase font-bold text-gray-300 tracking-widest block">PROGRESS</span>
-                        <span class="text-3xl font-extrabold text-white" id="tile-prog-stw">5 / 8M</span>
+                        <span class="text-[10px] uppercase font-bold text-gray-300 tracking-widest block drop-shadow">PROGRESS</span>
+                        <span class="text-3xl font-extrabold text-white drop-shadow-md" id="tile-prog-stw">5 / 8M</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-xs font-black text-gray-200 tracking-wider block" id="tile-pulls-stw">PULLS: --</span>
-                        <span class="text-xs font-black text-gray-200 tracking-wider block" id="tile-best-stw">BEST: --%</span>
-                        <span class="text-xl font-black text-white uppercase tracking-wide block mt-1" id="tile-boss-stw">CURRENT BOSS</span>
+                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-pulls-stw">PULLS: --</span>
+                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-best-stw">BEST: --%</span>
+                        <span class="text-xl font-black text-white uppercase tracking-wide block mt-0.5 drop-shadow-md" id="tile-boss-stw">CURRENT BOSS</span>
                     </div>
                 </div>
             </div>
@@ -142,76 +172,125 @@
     </main>
 
     <script type="text/javascript">
-        // Init Twitch Players
-        const domains = [];
-        if (window.location.hostname) {
-            domains.push(window.location.hostname);
-        }
+        // ==========================================
+        // 1. LIVE RAID NIGHT MANUAL OVERRIDES
+        // Modify these values during raid night if desired:
+        // ==========================================
+        const RAID_NIGHT_DATA = {
+            axon: {
+                boss: "THE TWIN FANGS",
+                pulls: 78,
+                best: "7.56%"
+            },
+            stw: {
+                boss: "THE TWIN FANGS",
+                pulls: 42,
+                best: "14.2%"
+            }
+        };
 
+        // Parent domain configuration
+        const currentHostname = window.location.hostname || "localhost";
+
+        // Init Twitch Streams
         new Twitch.Player("twitch-embed-march", {
             width: "100%",
             height: "100%",
             channel: "marchosiases",
-            parent: domains.length > 0 ? domains : ["localhost"]
+            parent: [currentHostname]
         });
 
         new Twitch.Player("twitch-embed-zheen", {
             width: "100%",
             height: "100%",
             channel: "zheenzz",
-            parent: domains.length > 0 ? domains : ["localhost"]
+            parent: [currentHostname]
         });
 
-        // Live Data Fetcher for Overview & Replica Tiles
-        async function fetchGuildProgress(region, realm, guildName, wclId, contentId, statusId, tileIds) {
-            const statusEl = document.getElementById(statusId);
-            const contentEl = document.getElementById(contentId);
+        // Set Twitch Chat iframe sources
+        document.getElementById("twitch-chat-march-frame").src = `https://www.twitch.tv/embed/marchosiases/chat?parent=${currentHostname}&darkpopout`;
+        document.getElementById("twitch-chat-zheen-frame").src = `https://www.twitch.tv/embed/zheenzz/chat?parent=${currentHostname}&darkpopout`;
 
-            try {
-                const encodedGuild = encodeURIComponent(guildName);
-                const apiUrl = `https://raider.io/api/v1/guilds/profile?region=${region}&realm=${realm}&name=${encodedGuild}&fields=raid_progression,raid_rankings`;
+        // Toggle Twitch Chat Sidebars
+        function toggleChat(chatId) {
+            const chatEl = document.getElementById(chatId);
+            const containerEl = document.getElementById(chatId === 'chat-march' ? 'container-march' : 'container-zheen');
 
-                const res = await fetch(apiUrl);
-                if (!res.ok) throw new Error("API failed");
-
-                const data = await res.json();
-                const raidKeys = Object.keys(data.raid_progression || {});
-                const latestRaidKey = raidKeys.length > 0 ? raidKeys[raidKeys.length - 1] : null;
-
-                if (latestRaidKey && data.raid_progression[latestRaidKey]) {
-                    const prog = data.raid_progression[latestRaidKey];
-                    const rankings = data.raid_rankings[latestRaidKey] ? data.raid_rankings[latestRaidKey].mythic : null;
-
-                    statusEl.textContent = "Live";
-                    statusEl.className = "text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded";
-
-                    contentEl.innerHTML = `
-                        <div class="grid grid-cols-3 gap-2">
-                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
-                                <span class="text-[10px] text-gray-400 block uppercase">Clearance</span>
-                                <span class="text-sm font-bold text-amber-400">${prog.mythic_bosses_killed} / ${prog.total_bosses} M</span>
-                            </div>
-                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
-                                <span class="text-[10px] text-gray-400 block uppercase">World Rank</span>
-                                <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.world : 'N/A'}</span>
-                            </div>
-                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
-                                <span class="text-[10px] text-gray-400 block uppercase">Realm Rank</span>
-                                <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.realm : 'N/A'}</span>
-                            </div>
-                        </div>
-                    `;
-
-                    // Update Native Replica Tile
-                    document.getElementById(tileIds.prog).textContent = `${prog.mythic_bosses_killed} / ${prog.total_bosses}M`;
-                }
-            } catch (err) {
-                statusEl.textContent = "Offline";
+            if (chatEl.classList.contains('hidden')) {
+                chatEl.classList.remove('hidden');
+                containerEl.classList.remove('md:col-span-3');
+                containerEl.classList.add('md:col-span-2');
+            } else {
+                chatEl.classList.add('hidden');
+                containerEl.classList.remove('md:col-span-2');
+                containerEl.classList.add('md:col-span-3');
             }
         }
 
-        fetchGuildProgress("eu", "tarren-mill", "Axon Terminal", 605355, "content-axon", "status-axon", { prog: 'tile-prog-axon' });
-        fetchGuildProgress("eu", "twisting-nether", "Save The Wife", 767263, "content-stw", "status-stw", { prog: 'tile-prog-stw' });
+        // Fetch Live Guild Stats from Raider.IO API
+        async function updateGuildStats() {
+            async function fetchSingleGuild(region, realm, guildName, statusId, contentId, tileIds, overrideData) {
+                const statusEl = document.getElementById(statusId);
+                const contentEl = document.getElementById(contentId);
+
+                try {
+                    const encodedGuild = encodeURIComponent(guildName);
+                    const apiUrl = `https://raider.io/api/v1/guilds/profile?region=${region}&realm=${realm}&name=${encodedGuild}&fields=raid_progression,raid_rankings`;
+
+                    const res = await fetch(apiUrl);
+                    if (!res.ok) throw new Error("API response error");
+
+                    const data = await res.json();
+                    const raidKeys = Object.keys(data.raid_progression || {});
+                    const latestRaidKey = raidKeys.length > 0 ? raidKeys[raidKeys.length - 1] : null;
+
+                    if (latestRaidKey && data.raid_progression[latestRaidKey]) {
+                        const prog = data.raid_progression[latestRaidKey];
+                        const rankings = data.raid_rankings[latestRaidKey] ? data.raid_rankings[latestRaidKey].mythic : null;
+
+                        statusEl.textContent = "Live";
+                        statusEl.className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded";
+
+                        contentEl.innerHTML = `
+                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
+                                <span class="text-[9px] text-gray-400 block uppercase">Clearance</span>
+                                <span class="text-sm font-bold text-amber-400">${prog.mythic_bosses_killed} / ${prog.total_bosses} M</span>
+                            </div>
+                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
+                                <span class="text-[9px] text-gray-400 block uppercase">World Rank</span>
+                                <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.world : 'N/A'}</span>
+                            </div>
+                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
+                                <span class="text-[9px] text-gray-400 block uppercase">Realm Rank</span>
+                                <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.realm : 'N/A'}</span>
+                            </div>
+                        `;
+
+                        // Update Tile Fields
+                        document.getElementById(tileIds.prog).textContent = `${prog.mythic_bosses_killed} / ${prog.total_bosses}M`;
+                        document.getElementById(tileIds.boss).textContent = overrideData.boss;
+                        document.getElementById(tileIds.pulls).textContent = `PULLS: ${overrideData.pulls}`;
+                        document.getElementById(tileIds.best).textContent = `BEST: ${overrideData.best}`;
+                    }
+                } catch (err) {
+                    statusEl.textContent = "Offline";
+                }
+            }
+
+            fetchSingleGuild("eu", "tarren-mill", "Axon Terminal", "status-axon", "content-axon", {
+                prog: 'tile-prog-axon', boss: 'tile-boss-axon', pulls: 'tile-pulls-axon', best: 'tile-best-axon'
+            }, RAID_NIGHT_DATA.axon);
+
+            fetchSingleGuild("eu", "twisting-nether", "Save The Wife", "status-stw", "content-stw", {
+                prog: 'tile-prog-stw', boss: 'tile-boss-stw', pulls: 'tile-pulls-stw', best: 'tile-best-stw'
+            }, RAID_NIGHT_DATA.stw);
+        }
+
+        // Run immediately on load
+        updateGuildStats();
+
+        // 30-second Auto-Update Loop
+        setInterval(updateGuildStats, 30000);
     </script>
 </body>
 </html>
