@@ -49,8 +49,7 @@
                     src="https://www.warcraftlogs.com/embed/guild-progress-tile/53?difficulty=5&guild=605355" 
                     title="Axon Terminal Progress Tile" 
                     class="w-full h-[180px] border-0"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin allow-popups">
+                    loading="lazy">
                 </iframe>
             </div>
 
@@ -60,8 +59,7 @@
                     src="https://www.warcraftlogs.com/embed/fight-percentage-per-pull-chart/53?difficulty=5&guilds=605355&color=%23517fa5&xAxis=pull" 
                     title="Axon Terminal Pull Chart" 
                     class="w-full h-[320px] border-0"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin allow-popups">
+                    loading="lazy">
                 </iframe>
             </div>
         </section>
@@ -91,8 +89,7 @@
                     src="https://www.warcraftlogs.com/embed/guild-progress-tile/53?difficulty=5&guild=767263" 
                     title="Save The Wife Progress Tile" 
                     class="w-full h-[180px] border-0"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin allow-popups">
+                    loading="lazy">
                 </iframe>
             </div>
 
@@ -102,8 +99,7 @@
                     src="https://www.warcraftlogs.com/embed/fight-percentage-per-pull-chart/53?difficulty=5&guilds=767263&color=%23e59232&xAxis=pull" 
                     title="Save The Wife Pull Chart" 
                     class="w-full h-[320px] border-0"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin allow-popups">
+                    loading="lazy">
                 </iframe>
             </div>
         </section>
@@ -112,13 +108,11 @@
 
     <!-- Twitch Player Initialization Script -->
     <script type="text/javascript">
-        // Extract parent domain for Twitch security rules
         const domains = [];
         if (window.location.hostname) {
             domains.push(window.location.hostname);
         }
 
-        // Initialize March Stream
         new Twitch.Player("twitch-embed-march", {
             width: "100%",
             height: "100%",
@@ -126,7 +120,6 @@
             parent: domains.length > 0 ? domains : ["localhost"]
         });
 
-        // Initialize Zheen Stream
         new Twitch.Player("twitch-embed-zheen", {
             width: "100%",
             height: "100%",
