@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guild Progress & Stream Tracker</title>
+    <title>Ex-Revolution RWF Watch Party</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Twitch Interactive Player API -->
@@ -15,10 +15,10 @@
     <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-lg w-full">
         <div class="flex items-center gap-3">
             <h1 class="text-2xl font-bold text-amber-400 tracking-wide flex items-center gap-2">
-                ⚔️ Race to World First — Live Tracker
+                ⚔️ Ex-Revolution RWF Watch Party
             </h1>
-            <span class="text-xs bg-red-950/80 text-red-400 border border-red-800/60 px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider flex items-center gap-1.5 shadow-inner">
-                <span class="text-red-500">🚩</span> Revolution Watch Party
+            <span class="text-xs bg-red-950 text-red-300 border border-red-700/80 px-3 py-1 rounded-full font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md">
+                <span class="text-red-500">🚩</span> Dentarg Alumni
             </span>
         </div>
         <div class="text-xs text-gray-400 flex items-center gap-2 bg-gray-950 px-3 py-1.5 rounded-full border border-gray-800">
@@ -30,11 +30,16 @@
     <!-- Main Grid (Full Width) -->
     <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
 
-        <!-- GUILD 1: Axon Terminal -->
-        <section class="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+        <!-- GUILD 1: Axon Terminal (Ex-Revo March) -->
+        <section class="bg-gray-900 border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3 flex-wrap gap-2">
                 <div>
-                    <h2 class="text-xl font-bold text-amber-300">Axon Terminal</h2>
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-xl font-bold text-amber-300">Axon Terminal</h2>
+                        <span class="text-[10px] bg-red-950 text-red-300 border border-red-700/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                            Ex-Revo: March
+                        </span>
+                    </div>
                     <p class="text-xs text-gray-400">EU – Tarren Mill | Streamer: March</p>
                 </div>
                 <div class="flex gap-2">
@@ -102,14 +107,14 @@
             </div>
         </section>
 
-        <!-- GUILD 2: Save The Wife (Former Revolution Members) -->
+        <!-- GUILD 2: Save The Wife (Ex-Revo Zheen & Venzer) -->
         <section class="bg-gray-900 border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
                         <h2 class="text-xl font-bold text-amber-300">Save The Wife</h2>
                         <span class="text-[10px] bg-red-950 text-red-300 border border-red-700/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
-                            Ex-Revolution
+                            Ex-Revo: Zheen & Venzer
                         </span>
                     </div>
                     <p class="text-xs text-gray-400">EU – Twisting Nether | Streamers: Zheen & Venzer</p>
@@ -172,7 +177,7 @@
                             Save The Wife
                         </h3>
                     </div>
-                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md flex items-center gap-1.5">
+                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md">
                         <img src="https://assets.rpglogs.com/img/warcraft/faction-1.png" alt="Horde" class="w-6 h-6">
                     </div>
                 </div>
@@ -202,7 +207,7 @@
 
         const currentHostname = window.location.hostname || "localhost";
 
-        // Init Fixed Stream (Axon Terminal)
+        // Init Fixed Stream (Axon Terminal - March)
         new Twitch.Player("twitch-embed-march", {
             width: "100%", height: "100%", channel: "marchosiases", parent: [currentHostname]
         });
@@ -222,7 +227,6 @@
 
             document.getElementById("twitch-chat-stw-frame").src = `https://www.twitch.tv/embed/${channel}/chat?parent=${currentHostname}&darkpopout`;
 
-            // Update Tab UI
             const btnZheen = document.getElementById("tab-zheen");
             const btnVenzer = document.getElementById("tab-venzer");
 
@@ -240,7 +244,6 @@
             loadStwStream(channel);
         }
 
-        // Init default STW Stream (Zheen)
         loadStwStream("zheenzz");
 
         // Toggle Twitch Chat Sidebars
