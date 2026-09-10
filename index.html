@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-950 text-gray-100">
+<html lang="en" class="bg-[#181616] text-gray-100">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,19 +9,19 @@
     <!-- Twitch Interactive Player API -->
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
-<body class="min-h-screen flex flex-col font-sans bg-gray-950 text-gray-100">
+<body class="min-h-screen flex flex-col font-sans bg-[#181616] text-gray-100">
 
     <!-- Header -->
-    <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-lg w-full">
+    <header class="bg-[#222020] border-b border-[#383333] px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-lg w-full">
         <div class="flex items-center gap-3">
             <h1 class="text-2xl font-bold text-amber-400 tracking-wide flex items-center gap-2">
                 ⚔️ Ex-Revolution RWF Watch Party
             </h1>
-            <span class="text-xs bg-red-950 text-red-300 border border-red-700/80 px-3 py-1 rounded-full font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md">
+            <span class="text-xs bg-red-950/80 text-red-300 border border-red-800/80 px-3 py-1 rounded-full font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md">
                 <span class="text-red-500">🚩</span> Dentarg Alumni
             </span>
         </div>
-        <div class="text-xs text-gray-400 flex items-center gap-2 bg-gray-950 px-3 py-1.5 rounded-full border border-gray-800">
+        <div class="text-xs text-gray-400 flex items-center gap-2 bg-[#181616] px-3 py-1.5 rounded-full border border-[#383333]">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span id="sync-timer">Next sync in 30s</span>
         </div>
@@ -31,12 +31,12 @@
     <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
 
         <!-- GUILD 1: Axon Terminal (Ex-Revo March) -->
-        <section class="bg-gray-900 border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-3 flex-wrap gap-2">
+        <section class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+            <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
                         <h2 class="text-xl font-bold text-amber-300">Axon Terminal</h2>
-                        <span class="text-[10px] bg-red-950 text-red-300 border border-red-700/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                        <span class="text-[10px] bg-red-950/80 text-red-300 border border-red-800/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                             Ex-Revo: March
                         </span>
                     </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="flex gap-2">
                     <button onclick="toggleChat('chat-march')" 
-                            class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 px-3 py-1.5 rounded transition">
+                            class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">
                         💬 Toggle Chat
                     </button>
                     <a href="https://www.warcraftlogs.com/guild/progress/605355?zone=53" 
@@ -58,45 +58,56 @@
             <!-- Video + Collapsible Chat Container -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                 <div id="container-march" class="md:col-span-3 transition-all duration-300">
-                    <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
+                    <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-[#383333]">
                         <div id="twitch-embed-march" class="w-full h-full"></div>
                     </div>
                 </div>
-                <div id="chat-march" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-gray-800">
+                <div id="chat-march" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-[#383333]">
                     <iframe id="twitch-chat-march-frame" class="w-full h-full border-0"></iframe>
                 </div>
             </div>
 
             <!-- Live Overview Panel -->
-            <div class="bg-gray-950 rounded-lg border border-gray-800 p-3 flex flex-col gap-2">
+            <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
                     <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded" id="status-axon">Syncing...</span>
                 </div>
                 <div id="content-axon" class="grid grid-cols-3 gap-2">
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
                 </div>
             </div>
 
-            <!-- Raider.IO Boss Progress Full Tile -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 flex justify-center items-center w-full min-h-[360px]">
-                <iframe 
-                    src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=tarren-mill&guild=Axon+Terminal&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                    class="w-full h-[360px] border-0"
-                    title="Axon Terminal Raider.IO Progress">
-                </iframe>
+            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 min-h-[300px] items-center justify-center">
+                <!-- Boss Progress Tile -->
+                <div class="w-full h-[280px] flex justify-center items-center overflow-hidden rounded">
+                    <iframe 
+                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=tarren-mill&guild=Axon+Terminal&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
+                        class="w-full h-[280px] border-0"
+                        title="Axon Terminal Raider.IO Progress">
+                    </iframe>
+                </div>
+                <!-- Health Over Attempt Chart -->
+                <div class="w-full h-[280px] flex justify-center items-center overflow-hidden rounded">
+                    <iframe 
+                        src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftarren-mill%2FAxon+Terminal&boss=latest" 
+                        class="w-full h-[280px] border-0"
+                        title="Axon Terminal Health Over Attempt">
+                    </iframe>
+                </div>
             </div>
         </section>
 
         <!-- GUILD 2: Save The Wife (Ex-Revo Zheen & Venzer) -->
-        <section class="bg-gray-900 border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-3 flex-wrap gap-2">
+        <section class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+            <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
                         <h2 class="text-xl font-bold text-amber-300">Save The Wife</h2>
-                        <span class="text-[10px] bg-red-950 text-red-300 border border-red-700/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                        <span class="text-[10px] bg-red-950/80 text-red-300 border border-red-800/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                             Ex-Revo: Zheen & Venzer
                         </span>
                     </div>
@@ -105,7 +116,7 @@
                 
                 <!-- Stream Switcher Tabs -->
                 <div class="flex items-center gap-2">
-                    <div class="bg-gray-950 p-1 rounded-lg border border-gray-800 flex gap-1">
+                    <div class="bg-[#181616] p-1 rounded-lg border border-[#383333] flex gap-1">
                         <button id="tab-zheen" onclick="switchStream('zheenzz')" 
                                 class="text-xs px-2.5 py-1 rounded font-semibold transition bg-amber-500 text-black">
                             Zheen
@@ -116,7 +127,7 @@
                         </button>
                     </div>
                     <button onclick="toggleChat('chat-stw')" 
-                            class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 px-3 py-1.5 rounded transition">
+                            class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">
                         💬 Toggle Chat
                     </button>
                     <a href="https://www.warcraftlogs.com/guild/id/767263" 
@@ -130,35 +141,46 @@
             <!-- Video + Collapsible Chat Container -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                 <div id="container-stw" class="md:col-span-3 transition-all duration-300">
-                    <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
+                    <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-[#383333]">
                         <div id="twitch-embed-stw" class="w-full h-full"></div>
                     </div>
                 </div>
-                <div id="chat-stw" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-gray-800">
+                <div id="chat-stw" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-[#383333]">
                     <iframe id="twitch-chat-stw-frame" class="w-full h-full border-0"></iframe>
                 </div>
             </div>
 
             <!-- Live Overview Panel -->
-            <div class="bg-gray-950 rounded-lg border border-gray-800 p-3 flex flex-col gap-2">
+            <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
                     <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded" id="status-stw">Syncing...</span>
                 </div>
                 <div id="content-stw" class="grid grid-cols-3 gap-2">
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center animate-pulse"><div class="h-4 bg-gray-800 rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
                 </div>
             </div>
 
-            <!-- Raider.IO Boss Progress Full Tile -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 flex justify-center items-center w-full min-h-[360px]">
-                <iframe 
-                    src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=twisting-nether&guild=Save+The+Wife&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                    class="w-full h-[360px] border-0"
-                    title="Save The Wife Raider.IO Progress">
-                </iframe>
+            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 min-h-[300px] items-center justify-center">
+                <!-- Boss Progress Tile -->
+                <div class="w-full h-[280px] flex justify-center items-center overflow-hidden rounded">
+                    <iframe 
+                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=twisting-nether&guild=Save+The+Wife&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
+                        class="w-full h-[280px] border-0"
+                        title="Save The Wife Raider.IO Progress">
+                    </iframe>
+                </div>
+                <!-- Health Over Attempt Chart -->
+                <div class="w-full h-[280px] flex justify-center items-center overflow-hidden rounded">
+                    <iframe 
+                        src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftwisting-nether%2FSave+The+Wife&boss=latest" 
+                        class="w-full h-[280px] border-0"
+                        title="Save The Wife Health Over Attempt">
+                    </iframe>
+                </div>
             </div>
         </section>
 
@@ -260,15 +282,15 @@
                         statusEl.className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded";
 
                         contentEl.innerHTML = `
-                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
+                            <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center">
                                 <span class="text-[9px] text-gray-400 block uppercase">Clearance</span>
                                 <span class="text-sm font-bold text-amber-400">${prog.mythic_bosses_killed} / ${prog.total_bosses} M</span>
                             </div>
-                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
+                            <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center">
                                 <span class="text-[9px] text-gray-400 block uppercase">World Rank</span>
                                 <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.world : 'N/A'}</span>
                             </div>
-                            <div class="bg-gray-900 border border-gray-800 p-2 rounded text-center">
+                            <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center">
                                 <span class="text-[9px] text-gray-400 block uppercase">Realm Rank</span>
                                 <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.realm : 'N/A'}</span>
                             </div>
