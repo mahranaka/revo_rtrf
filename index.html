@@ -12,10 +12,15 @@
 <body class="min-h-screen flex flex-col font-sans bg-gray-950 text-gray-100">
 
     <!-- Header -->
-    <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between shadow-lg w-full">
-        <h1 class="text-2xl font-bold text-amber-400 tracking-wide flex items-center gap-2">
-            ⚔️ Race to World First — Live Tracker
-        </h1>
+    <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-lg w-full">
+        <div class="flex items-center gap-3">
+            <h1 class="text-2xl font-bold text-amber-400 tracking-wide flex items-center gap-2">
+                ⚔️ Race to World First — Live Tracker
+            </h1>
+            <span class="text-xs bg-red-950/80 text-red-400 border border-red-800/60 px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider flex items-center gap-1.5 shadow-inner">
+                <span class="text-red-500">🚩</span> Revolution Watch Party
+            </span>
+        </div>
         <div class="text-xs text-gray-400 flex items-center gap-2 bg-gray-950 px-3 py-1.5 rounded-full border border-gray-800">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span id="sync-timer">Next sync in 30s</span>
@@ -97,15 +102,32 @@
             </div>
         </section>
 
-        <!-- GUILD 2: Save The Wife -->
-        <section class="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+        <!-- GUILD 2: Save The Wife (Former Revolution Members) -->
+        <section class="bg-gray-900 border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3 flex-wrap gap-2">
                 <div>
-                    <h2 class="text-xl font-bold text-amber-300">Save The Wife</h2>
-                    <p class="text-xs text-gray-400">EU – Twisting Nether | Streamer: Zheen & Venzer</p>
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-xl font-bold text-amber-300">Save The Wife</h2>
+                        <span class="text-[10px] bg-red-950 text-red-300 border border-red-700/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                            Ex-Revolution
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-400">EU – Twisting Nether | Streamers: Zheen & Venzer</p>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="toggleChat('chat-zheen')" 
+                
+                <!-- Stream Switcher Tabs -->
+                <div class="flex items-center gap-2">
+                    <div class="bg-gray-950 p-1 rounded-lg border border-gray-800 flex gap-1">
+                        <button id="tab-zheen" onclick="switchStream('zheenzz')" 
+                                class="text-xs px-2.5 py-1 rounded font-semibold transition bg-amber-500 text-black">
+                            Zheen
+                        </button>
+                        <button id="tab-venzer" onclick="switchStream('imnotvenzer')" 
+                                class="text-xs px-2.5 py-1 rounded font-semibold text-gray-400 hover:text-white transition">
+                            Venzer
+                        </button>
+                    </div>
+                    <button onclick="toggleChat('chat-stw')" 
                             class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 px-3 py-1.5 rounded transition">
                         💬 Toggle Chat
                     </button>
@@ -119,13 +141,13 @@
 
             <!-- Video + Collapsible Chat Container -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
-                <div id="container-zheen" class="md:col-span-3 transition-all duration-300">
+                <div id="container-stw" class="md:col-span-3 transition-all duration-300">
                     <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
-                        <div id="twitch-embed-zheen" class="w-full h-full"></div>
+                        <div id="twitch-embed-stw" class="w-full h-full"></div>
                     </div>
                 </div>
-                <div id="chat-zheen" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-gray-800">
-                    <iframe id="twitch-chat-zheen-frame" class="w-full h-full border-0"></iframe>
+                <div id="chat-stw" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-gray-800">
+                    <iframe id="twitch-chat-stw-frame" class="w-full h-full border-0"></iframe>
                 </div>
             </div>
 
@@ -150,7 +172,7 @@
                             Save The Wife
                         </h3>
                     </div>
-                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md">
+                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md flex items-center gap-1.5">
                         <img src="https://assets.rpglogs.com/img/warcraft/faction-1.png" alt="Horde" class="w-6 h-6">
                     </div>
                 </div>
@@ -180,21 +202,51 @@
 
         const currentHostname = window.location.hostname || "localhost";
 
-        // Init Twitch Streams
+        // Init Fixed Stream (Axon Terminal)
         new Twitch.Player("twitch-embed-march", {
             width: "100%", height: "100%", channel: "marchosiases", parent: [currentHostname]
         });
-        new Twitch.Player("twitch-embed-zheen", {
-            width: "100%", height: "100%", channel: "zheenzz", parent: [currentHostname]
-        });
-
-        // Set Twitch Chat iframe sources
         document.getElementById("twitch-chat-march-frame").src = `https://www.twitch.tv/embed/marchosiases/chat?parent=${currentHostname}&darkpopout`;
-        document.getElementById("twitch-chat-zheen-frame").src = `https://www.twitch.tv/embed/zheenzz/chat?parent=${currentHostname}&darkpopout`;
 
+        // Dynamic Stream Switcher Logic (Save The Wife)
+        let stwPlayer = null;
+        let activeChannel = "zheenzz";
+
+        function loadStwStream(channel) {
+            activeChannel = channel;
+            document.getElementById("twitch-embed-stw").innerHTML = "";
+
+            stwPlayer = new Twitch.Player("twitch-embed-stw", {
+                width: "100%", height: "100%", channel: channel, parent: [currentHostname]
+            });
+
+            document.getElementById("twitch-chat-stw-frame").src = `https://www.twitch.tv/embed/${channel}/chat?parent=${currentHostname}&darkpopout`;
+
+            // Update Tab UI
+            const btnZheen = document.getElementById("tab-zheen");
+            const btnVenzer = document.getElementById("tab-venzer");
+
+            if (channel === "zheenzz") {
+                btnZheen.className = "text-xs px-2.5 py-1 rounded font-semibold transition bg-amber-500 text-black";
+                btnVenzer.className = "text-xs px-2.5 py-1 rounded font-semibold text-gray-400 hover:text-white transition";
+            } else {
+                btnVenzer.className = "text-xs px-2.5 py-1 rounded font-semibold transition bg-amber-500 text-black";
+                btnZheen.className = "text-xs px-2.5 py-1 rounded font-semibold text-gray-400 hover:text-white transition";
+            }
+        }
+
+        function switchStream(channel) {
+            if (activeChannel === channel) return;
+            loadStwStream(channel);
+        }
+
+        // Init default STW Stream (Zheen)
+        loadStwStream("zheenzz");
+
+        // Toggle Twitch Chat Sidebars
         function toggleChat(chatId) {
             const chatEl = document.getElementById(chatId);
-            const containerEl = document.getElementById(chatId === 'chat-march' ? 'container-march' : 'container-zheen');
+            const containerEl = document.getElementById(chatId === 'chat-march' ? 'container-march' : 'container-stw');
 
             if (chatEl.classList.contains('hidden')) {
                 chatEl.classList.remove('hidden');
