@@ -8,6 +8,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Twitch Interactive Player API -->
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <style>
+        /* Scale down fixed-width Raider.IO chart widgets to fit tightly */
+        .rio-chart-scaler {
+            width: 600px;
+            height: 400px;
+            transform: scale(0.72);
+            transform-origin: top left;
+        }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans bg-[#181616] text-gray-100">
 
@@ -81,22 +90,24 @@
             </div>
 
             <!-- Side-by-Side Raider.IO Widgets Container -->
-            <div class="flex flex-col xl:flex-row gap-4 bg-[#181616] rounded-lg border border-[#383333] p-3 items-center justify-between overflow-x-auto">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
                 <!-- Boss Progress Tile -->
-                <div class="w-full xl:w-[48%] h-[320px] flex justify-center items-center overflow-hidden rounded">
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
                     <iframe 
                         src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=tarren-mill&guild=Axon+Terminal&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                        class="w-full h-[320px] border-0"
+                        class="w-full h-[280px] border-0"
                         title="Axon Terminal Raider.IO Progress">
                     </iframe>
                 </div>
-                <!-- Health Over Attempt Chart -->
-                <div class="w-full xl:w-[48%] h-[320px] flex justify-center items-center overflow-hidden rounded">
-                    <iframe 
-                        src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftarren-mill%2FAxon+Terminal&boss=latest" 
-                        class="w-full h-[320px] border-0"
-                        title="Axon Terminal Health Over Attempt">
-                    </iframe>
+                <!-- Scaled Health Over Attempt Chart -->
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
+                    <div class="w-[432px] h-[288px] overflow-hidden">
+                        <iframe 
+                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftarren-mill%2FAxon+Terminal&boss=latest" 
+                            class="rio-chart-scaler border-0"
+                            title="Axon Terminal Health Over Attempt">
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </section>
@@ -164,22 +175,24 @@
             </div>
 
             <!-- Side-by-Side Raider.IO Widgets Container -->
-            <div class="flex flex-col xl:flex-row gap-4 bg-[#181616] rounded-lg border border-[#383333] p-3 items-center justify-between overflow-x-auto">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
                 <!-- Boss Progress Tile -->
-                <div class="w-full xl:w-[48%] h-[320px] flex justify-center items-center overflow-hidden rounded">
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
                     <iframe 
                         src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=twisting-nether&guild=Save+The+Wife&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                        class="w-full h-[320px] border-0"
+                        class="w-full h-[280px] border-0"
                         title="Save The Wife Raider.IO Progress">
                     </iframe>
                 </div>
-                <!-- Health Over Attempt Chart -->
-                <div class="w-full xl:w-[48%] h-[320px] flex justify-center items-center overflow-hidden rounded">
-                    <iframe 
-                        src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftwisting-nether%2FSave+The+Wife&boss=latest" 
-                        class="w-full h-[320px] border-0"
-                        title="Save The Wife Health Over Attempt">
-                    </iframe>
+                <!-- Scaled Health Over Attempt Chart -->
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
+                    <div class="w-[432px] h-[288px] overflow-hidden">
+                        <iframe 
+                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftwisting-nether%2FSave+The+Wife&boss=latest" 
+                            class="rio-chart-scaler border-0"
+                            title="Save The Wife Health Over Attempt">
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </section>
