@@ -55,7 +55,7 @@
     <!-- Top Standings News Ticker & RWF Event Feed Banner -->
     <section class="bg-[#222020] border-b border-[#383333] py-3 px-4 w-full shadow-md flex flex-col xl:flex-row items-center justify-between gap-4 overflow-hidden">
         
-        <!-- Left: News Ticker mit 3 Wiederholungen & klarem Trenner -->
+        <!-- Left: News Ticker -->
         <div class="flex items-center w-full xl:flex-1 overflow-hidden">
             <div class="px-3 py-1.5 bg-[#181616] rounded-lg border border-[#383333] z-10 flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400 whitespace-nowrap shadow-md shrink-0 mr-3">
                 🏆 STANDINGS FEED
@@ -67,12 +67,12 @@
             </div>
         </div>
 
-        <!-- Right: RWF Event Feed Widget in korrekter Proportionalgröße (200px Höhe) -->
-        <div class="w-full xl:w-[580px] h-[200px] bg-[#181616] rounded-lg border border-[#383333] overflow-hidden flex justify-center items-center shrink-0 shadow-inner">
+        <!-- Right: Unverändertes RWF Event Feed Widget (Exakt nach Vorlage-URL) -->
+        <div class="w-full xl:w-[500px] h-[150px] bg-[#181616] rounded-lg border border-[#383333] overflow-hidden flex justify-center items-center shrink-0 shadow-inner">
             <iframe 
-                src="https://raider.io/widgets/rwf-event-feed?raid=latest&difficulty=latest&guild_ids=1642401%2C2072242%2C1577755&types=new_boss%2Cbest_percent%2Cboss_kill%2Cfirst_pull&period=until_kill&chromargb=transparent" 
-                class="w-full h-[200px] border-0"
-                title="Alumni RWF Live Event Feed">
+                src="https://raider.io/widgets/rwf-event-feed?raid=latest&difficulty=latest&guild_ids=1577755%2C1642401%2C2072242&types=new_boss%2Cbest_percent%2Cboss_kill&chromargb=transparent" 
+                class="w-full h-full border-0"
+                title="RWF Event Feed">
             </iframe>
         </div>
 
@@ -505,7 +505,6 @@
                     </div>
                 `).join('');
 
-                // Trennelement am Ende jeder Wiederholung
                 const dividerHtml = `
                     <div class="flex items-center gap-2 px-6 text-amber-500 font-bold text-xs uppercase tracking-widest shrink-0 opacity-80">
                         <span>❖</span>
@@ -516,7 +515,6 @@
 
                 const blockHtml = `<div class="flex items-center">${singleSetHtml}${dividerHtml}</div>`;
 
-                // 3-fache Wiederholung
                 tickerWrapper.innerHTML = `
                     <div class="animate-ticker">
                         ${blockHtml}
