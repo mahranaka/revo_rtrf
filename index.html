@@ -12,21 +12,21 @@
 <body class="min-h-screen flex flex-col font-sans bg-gray-950 text-gray-100">
 
     <!-- Header -->
-    <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between shadow-lg">
+    <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between shadow-lg w-full">
         <h1 class="text-2xl font-bold text-amber-400 tracking-wide flex items-center gap-2">
             ⚔️ Race to World First — Live Tracker
         </h1>
-        <div class="text-xs text-gray-400 flex items-center gap-2">
+        <div class="text-xs text-gray-400 flex items-center gap-2 bg-gray-950 px-3 py-1.5 rounded-full border border-gray-800">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            Auto-Syncing Every 30s
+            <span id="sync-timer">Next sync in 30s</span>
         </div>
     </header>
 
-    <!-- Main Grid -->
-    <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1920px] mx-auto w-full">
+    <!-- Main Grid (Full Width) -->
+    <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
 
         <!-- GUILD 1: Axon Terminal -->
-        <section class="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-4 shadow-2xl">
+        <section class="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <div>
                     <h2 class="text-xl font-bold text-amber-300">Axon Terminal</h2>
@@ -46,7 +46,7 @@
             </div>
 
             <!-- Video + Collapsible Chat Container -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                 <div id="container-march" class="md:col-span-3 transition-all duration-300">
                     <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
                         <div id="twitch-embed-march" class="w-full h-full"></div>
@@ -98,7 +98,7 @@
         </section>
 
         <!-- GUILD 2: Save The Wife -->
-        <section class="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-4 shadow-2xl">
+        <section class="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <div>
                     <h2 class="text-xl font-bold text-amber-300">Save The Wife</h2>
@@ -118,7 +118,7 @@
             </div>
 
             <!-- Video + Collapsible Chat Container -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                 <div id="container-zheen" class="md:col-span-3 transition-all duration-300">
                     <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
                         <div id="twitch-embed-zheen" class="w-full h-full"></div>
@@ -172,46 +172,26 @@
     </main>
 
     <script type="text/javascript">
-        // ==========================================
-        // 1. LIVE RAID NIGHT MANUAL OVERRIDES
-        // Modify these values during raid night if desired:
-        // ==========================================
+        // Manual Overrides
         const RAID_NIGHT_DATA = {
-            axon: {
-                boss: "THE TWIN FANGS",
-                pulls: 78,
-                best: "7.56%"
-            },
-            stw: {
-                boss: "THE TWIN FANGS",
-                pulls: 42,
-                best: "14.2%"
-            }
+            axon: { boss: "THE TWIN FANGS", pulls: 78, best: "7.56%" },
+            stw: { boss: "THE TWIN FANGS", pulls: 42, best: "14.2%" }
         };
 
-        // Parent domain configuration
         const currentHostname = window.location.hostname || "localhost";
 
         // Init Twitch Streams
         new Twitch.Player("twitch-embed-march", {
-            width: "100%",
-            height: "100%",
-            channel: "marchosiases",
-            parent: [currentHostname]
+            width: "100%", height: "100%", channel: "marchosiases", parent: [currentHostname]
         });
-
         new Twitch.Player("twitch-embed-zheen", {
-            width: "100%",
-            height: "100%",
-            channel: "zheenzz",
-            parent: [currentHostname]
+            width: "100%", height: "100%", channel: "zheenzz", parent: [currentHostname]
         });
 
         // Set Twitch Chat iframe sources
         document.getElementById("twitch-chat-march-frame").src = `https://www.twitch.tv/embed/marchosiases/chat?parent=${currentHostname}&darkpopout`;
         document.getElementById("twitch-chat-zheen-frame").src = `https://www.twitch.tv/embed/zheenzz/chat?parent=${currentHostname}&darkpopout`;
 
-        // Toggle Twitch Chat Sidebars
         function toggleChat(chatId) {
             const chatEl = document.getElementById(chatId);
             const containerEl = document.getElementById(chatId === 'chat-march' ? 'container-march' : 'container-zheen');
@@ -227,7 +207,20 @@
             }
         }
 
-        // Fetch Live Guild Stats from Raider.IO API
+        // Countdown Timer Logic
+        let countdown = 30;
+        const timerEl = document.getElementById("sync-timer");
+
+        setInterval(() => {
+            countdown--;
+            if (countdown <= 0) {
+                countdown = 30;
+                updateGuildStats();
+            }
+            timerEl.textContent = `Next sync in ${countdown}s`;
+        }, 1000);
+
+        // Fetch Live Guild Stats
         async function updateGuildStats() {
             async function fetchSingleGuild(region, realm, guildName, statusId, contentId, tileIds, overrideData) {
                 const statusEl = document.getElementById(statusId);
@@ -266,7 +259,6 @@
                             </div>
                         `;
 
-                        // Update Tile Fields
                         document.getElementById(tileIds.prog).textContent = `${prog.mythic_bosses_killed} / ${prog.total_bosses}M`;
                         document.getElementById(tileIds.boss).textContent = overrideData.boss;
                         document.getElementById(tileIds.pulls).textContent = `PULLS: ${overrideData.pulls}`;
@@ -286,11 +278,7 @@
             }, RAID_NIGHT_DATA.stw);
         }
 
-        // Run immediately on load
         updateGuildStats();
-
-        // 30-second Auto-Update Loop
-        setInterval(updateGuildStats, 30000);
     </script>
 </body>
 </html>
