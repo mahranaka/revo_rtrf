@@ -63,11 +63,16 @@
                     </div>
                     <p class="text-xs text-gray-400">EU – Tarren Mill | Streamer: March</p>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 items-center">
                     <button onclick="toggleChat('chat-march')" 
                             class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">
                         💬 Toggle Chat
                     </button>
+                    <a href="https://raider.io/guilds/eu/tarren-mill/Axon%20Terminal" 
+                       target="_blank" 
+                       class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">
+                       Raider.IO ↗
+                    </a>
                     <a href="https://www.warcraftlogs.com/guild/progress/605355?zone=53" 
                        target="_blank" 
                        class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
@@ -146,7 +151,7 @@
                     <p class="text-xs text-gray-400">EU – Twisting Nether | Streamers: Zheen & Venzer</p>
                 </div>
                 
-                <!-- Stream Switcher Tabs -->
+                <!-- Stream Switcher Tabs & Links -->
                 <div class="flex items-center gap-2">
                     <div class="bg-[#181616] p-1 rounded-lg border border-[#383333] flex gap-1">
                         <button id="tab-zheen" onclick="switchStream('zheenzz')" 
@@ -162,6 +167,11 @@
                             class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">
                         💬 Toggle Chat
                     </button>
+                    <a href="https://raider.io/guilds/eu/twisting-nether/Save%20The%20Wife" 
+                       target="_blank" 
+                       class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">
+                       Raider.IO ↗
+                    </a>
                     <a href="https://www.warcraftlogs.com/guild/id/767263" 
                        target="_blank" 
                        class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
@@ -239,11 +249,16 @@
                     </div>
                     <p class="text-xs text-gray-400">EU – Argent Dawn | Streamer: Offline</p>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 items-center">
                     <a href="https://raider.io/guilds/eu/argent-dawn/Welcome" 
                        target="_blank" 
-                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
+                       class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">
                        Raider.IO ↗
+                    </a>
+                    <a href="https://www.warcraftlogs.com/guild/eu/argent-dawn/Welcome" 
+                       target="_blank" 
+                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
+                       Full WCL ↗
                     </a>
                 </div>
             </div>
@@ -304,6 +319,13 @@
 
     <script type="text/javascript">
         const currentHostname = window.location.hostname || "localhost";
+
+        // Map guilds to their ex-revolution members
+        const EX_REVO_MEMBERS = {
+            "Axon Terminal": "March",
+            "Save The Wife": "Zheen, Venzer",
+            "Welcome": "Sam, Treaderz"
+        };
 
         // Init March Stream
         new Twitch.Player("twitch-embed-march", {
@@ -418,7 +440,8 @@
                             name: guildName,
                             kills: prog.mythic_bosses_killed,
                             total: prog.total_bosses,
-                            worldRank: rankings ? rankings.world : 999999
+                            worldRank: rankings ? rankings.world : 999999,
+                            members: EX_REVO_MEMBERS[guildName] || ""
                         });
                     }
                 } catch (err) {
@@ -443,6 +466,7 @@
                     <div class="flex items-center gap-2 bg-[#181616] px-3 py-1 rounded-lg border border-[#383333]">
                         <span class="font-black ${idx === 0 ? 'text-amber-400' : 'text-gray-400'}">#${idx + 1}</span>
                         <span class="font-bold text-white">${g.name}</span>
+                        <span class="text-xs text-red-400 font-semibold">(${g.members})</span>
                         <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">${g.kills}/${g.total}M</span>
                         <span class="text-xs text-gray-400">World #${g.worldRank === 999999 ? 'N/A' : g.worldRank}</span>
                     </div>
