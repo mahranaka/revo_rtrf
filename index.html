@@ -80,30 +80,14 @@
                 </div>
             </div>
 
-            <!-- Native Replica Progress Tile -->
-            <div id="replica-tile-axon" class="relative w-full h-[180px] bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-2xl flex flex-col justify-between p-5 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(10, 15, 30, 0.9), rgba(10, 15, 30, 0.5)), url('https://assets.rpglogs.com/img/warcraft/banners/18.jpg');">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="text-2xl font-black text-white tracking-wider uppercase border-b-2 border-red-600 pb-0.5 inline-block drop-shadow-md">
-                            Axon Terminal
-                        </h3>
-                    </div>
-                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md">
-                        <img src="https://assets.rpglogs.com/img/warcraft/faction-1.png" alt="Horde" class="w-6 h-6">
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-end">
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-gray-300 tracking-widest block drop-shadow">PROGRESS</span>
-                        <span class="text-3xl font-extrabold text-white drop-shadow-md" id="tile-prog-axon">--</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-pulls-axon">PULLS: --</span>
-                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-best-axon">BEST: --%</span>
-                        <span class="text-xl font-black text-white uppercase tracking-wide block mt-0.5 drop-shadow-md" id="tile-boss-axon">FETCHING...</span>
-                    </div>
-                </div>
+            <!-- Official Raider.IO Live Boss Progress Widget -->
+            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 min-h-[120px]">
+                <iframe 
+                    src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=tarren-mill&guild=Axon+Terminal&boss=latest&period=until_kill&orientation=rect&hide=logo&chromargb=transparent&theme=dragonflight&refresh=60" 
+                    title="Axon Terminal Raider.IO Boss Progress" 
+                    class="w-full h-[120px] border-0"
+                    loading="lazy">
+                </iframe>
             </div>
         </section>
 
@@ -169,30 +153,14 @@
                 </div>
             </div>
 
-            <!-- Native Replica Progress Tile -->
-            <div id="replica-tile-stw" class="relative w-full h-[180px] bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-2xl flex flex-col justify-between p-5 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(10, 15, 30, 0.9), rgba(10, 15, 30, 0.5)), url('https://assets.rpglogs.com/img/warcraft/banners/18.jpg');">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="text-2xl font-black text-white tracking-wider uppercase border-b-2 border-red-600 pb-0.5 inline-block drop-shadow-md">
-                            Save The Wife
-                        </h3>
-                    </div>
-                    <div class="bg-black/70 p-1.5 rounded-full border border-gray-700/80 shadow-md">
-                        <img src="https://assets.rpglogs.com/img/warcraft/faction-1.png" alt="Horde" class="w-6 h-6">
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-end">
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-gray-300 tracking-widest block drop-shadow">PROGRESS</span>
-                        <span class="text-3xl font-extrabold text-white drop-shadow-md" id="tile-prog-stw">--</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-pulls-stw">PULLS: --</span>
-                        <span class="text-xs font-black text-gray-200 tracking-wider block drop-shadow" id="tile-best-stw">BEST: --%</span>
-                        <span class="text-xl font-black text-white uppercase tracking-wide block mt-0.5 drop-shadow-md" id="tile-boss-stw">FETCHING...</span>
-                    </div>
-                </div>
+            <!-- Official Raider.IO Live Boss Progress Widget -->
+            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 min-h-[120px]">
+                <iframe 
+                    src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=twisting-nether&guild=Save+The+Wife&boss=latest&period=until_kill&orientation=rect&hide=logo&chromargb=transparent&theme=dragonflight&refresh=60" 
+                    title="Save The Wife Raider.IO Boss Progress" 
+                    class="w-full h-[120px] border-0"
+                    loading="lazy">
+                </iframe>
             </div>
         </section>
 
@@ -269,15 +237,14 @@
             timerEl.textContent = `Next sync in ${countdown}s`;
         }, 1000);
 
-        // Fetch Live Guild Stats Automatically
+        // Fetch Live Guild Overview Stats
         async function updateGuildStats() {
-            async function fetchSingleGuild(region, realm, guildName, statusId, contentId, tileIds) {
+            async function fetchSingleGuild(region, realm, guildName, statusId, contentId) {
                 const statusEl = document.getElementById(statusId);
                 const contentEl = document.getElementById(contentId);
 
                 try {
                     const encodedGuild = encodeURIComponent(guildName);
-                    // Query Raider.IO's public API for live progress and raid details
                     const apiUrl = `https://raider.io/api/v1/guilds/profile?region=${region}&realm=${realm}&name=${encodedGuild}&fields=raid_progression,raid_rankings`;
 
                     const res = await fetch(apiUrl);
@@ -308,30 +275,14 @@
                                 <span class="text-sm font-bold text-gray-200">${rankings ? '#' + rankings.realm : 'N/A'}</span>
                             </div>
                         `;
-
-                        // Automatically populate Tile fields from the live API
-                        document.getElementById(tileIds.prog).textContent = `${prog.mythic_bosses_killed} / ${prog.total_bosses}M`;
-                        
-                        // Infer current wall boss name based on clearance count
-                        const currentBossName = prog.mythic_bosses_killed < prog.total_bosses ? "THE TWIN FANGS" : "TIER CLEARED";
-                        document.getElementById(tileIds.boss).textContent = currentBossName;
-
-                        // Fetch detailed pull counts if available from public endpoints
-                        document.getElementById(tileIds.pulls).textContent = `PULLS: ${prog.total_bosses > 0 ? 'SYNCED' : '--'}`;
-                        document.getElementById(tileIds.best).textContent = `BEST: ${prog.mythic_bosses_killed > 0 ? 'LIVE' : '--%'}`;
                     }
                 } catch (err) {
                     statusEl.textContent = "Offline";
                 }
             }
 
-            fetchSingleGuild("eu", "tarren-mill", "Axon Terminal", "status-axon", "content-axon", {
-                prog: 'tile-prog-axon', boss: 'tile-boss-axon', pulls: 'tile-pulls-axon', best: 'tile-best-axon'
-            });
-
-            fetchSingleGuild("eu", "twisting-nether", "Save The Wife", "status-stw", "content-stw", {
-                prog: 'tile-prog-stw', boss: 'tile-boss-stw', pulls: 'tile-pulls-stw', best: 'tile-best-stw'
-            });
+            fetchSingleGuild("eu", "tarren-mill", "Axon Terminal", "status-axon", "content-axon");
+            fetchSingleGuild("eu", "twisting-nether", "Save The Wife", "status-stw", "content-stw");
         }
 
         updateGuildStats();
