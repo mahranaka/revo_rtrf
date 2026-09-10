@@ -48,20 +48,21 @@
         </div>
     </section>
 
-    <!-- Main Grid (Full Width) -->
-    <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full items-start">
+    <!-- Main Grid (Full Width Container for Dynamic Sorting) -->
+    <main id="guilds-grid" class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full items-start">
 
-        <!-- GUILD 1: Axon Terminal (Ex-Revo March) -->
-        <section class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+        <!-- GUILD: Axon Terminal -->
+        <section id="panel-axon" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
+                        <span id="rank-badge-axon" class="text-2xl font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded shadow">#--</span>
                         <h2 class="text-xl font-bold text-amber-300">Axon Terminal</h2>
                         <span class="text-[10px] bg-red-950/80 text-red-300 border border-red-800/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                             Ex-Revo: March
                         </span>
                     </div>
-                    <p class="text-xs text-gray-400">EU – Tarren Mill | Streamer: March</p>
+                    <p class="text-xs text-gray-400 mt-1">EU – Tarren Mill | Streamer: March</p>
                 </div>
                 <div class="flex gap-2 items-center">
                     <button onclick="toggleChat('chat-march')" 
@@ -138,17 +139,18 @@
             </div>
         </section>
 
-        <!-- GUILD 2: Save The Wife (Ex-Revo Zheen & Venzer) -->
-        <section class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
+        <!-- GUILD: Save The Wife -->
+        <section id="panel-stw" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
+                        <span id="rank-badge-stw" class="text-2xl font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded shadow">#--</span>
                         <h2 class="text-xl font-bold text-amber-300">Save The Wife</h2>
                         <span class="text-[10px] bg-red-950/80 text-red-300 border border-red-800/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                             Ex-Revo: Zheen & Venzer
                         </span>
                     </div>
-                    <p class="text-xs text-gray-400">EU – Twisting Nether | Streamers: Zheen & Venzer</p>
+                    <p class="text-xs text-gray-400 mt-1">EU – Twisting Nether | Streamers: Zheen & Venzer</p>
                 </div>
                 
                 <!-- Stream Switcher Tabs & Links -->
@@ -237,17 +239,18 @@
             </div>
         </section>
 
-        <!-- GUILD 3: Welcome (Ex-Revo Sam & Treaderz) -->
-        <section class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative lg:col-span-1">
+        <!-- GUILD: Welcome -->
+        <section id="panel-welcome" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full relative">
             <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
                 <div>
                     <div class="flex items-center gap-2">
+                        <span id="rank-badge-welcome" class="text-2xl font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded shadow">#--</span>
                         <h2 class="text-xl font-bold text-amber-300">Welcome</h2>
                         <span class="text-[10px] bg-red-950/80 text-red-300 border border-red-800/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                             Ex-Revo: Sam & Treaderz
                         </span>
                     </div>
-                    <p class="text-xs text-gray-400">EU – Argent Dawn | Streamer: Offline</p>
+                    <p class="text-xs text-gray-400 mt-1">EU – Argent Dawn | Streamer: Offline</p>
                 </div>
                 <div class="flex gap-2 items-center">
                     <a href="https://raider.io/guilds/eu/argent-dawn/Welcome" 
@@ -320,11 +323,11 @@
     <script type="text/javascript">
         const currentHostname = window.location.hostname || "localhost";
 
-        // Map guilds to their ex-revolution members
-        const EX_REVO_MEMBERS = {
-            "Axon Terminal": "March",
-            "Save The Wife": "Zheen, Venzer",
-            "Welcome": "Sam, Treaderz"
+        // Map guilds to their ex-revolution members & panel elements
+        const GUILD_CONFIG = {
+            "Axon Terminal": { members: "March", panelId: "panel-axon", badgeId: "rank-badge-axon" },
+            "Save The Wife": { members: "Zheen, Venzer", panelId: "panel-stw", badgeId: "rank-badge-stw" },
+            "Welcome": { members: "Sam, Treaderz", panelId: "panel-welcome", badgeId: "rank-badge-welcome" }
         };
 
         // Init March Stream
@@ -395,7 +398,7 @@
             timerEl.textContent = `Next sync in ${countdown}s`;
         }, 1000);
 
-        // Fetch Live Guild Overview Stats & Render Leaderboard
+        // Fetch Live Guild Overview Stats & Render Sorted Panels & Leaderboard
         async function updateGuildStats() {
             const guildData = [];
 
@@ -441,7 +444,7 @@
                             kills: prog.mythic_bosses_killed,
                             total: prog.total_bosses,
                             worldRank: rankings ? rankings.world : 999999,
-                            members: EX_REVO_MEMBERS[guildName] || ""
+                            config: GUILD_CONFIG[guildName]
                         });
                     }
                 } catch (err) {
@@ -459,19 +462,37 @@
                 return a.worldRank - b.worldRank;
             });
 
-            // Render Leaderboard
+            // Render Top Banner Leaderboard
             const lbContainer = document.getElementById("leaderboard-container");
             if (guildData.length > 0) {
                 lbContainer.innerHTML = guildData.map((g, idx) => `
                     <div class="flex items-center gap-2 bg-[#181616] px-3 py-1 rounded-lg border border-[#383333]">
                         <span class="font-black ${idx === 0 ? 'text-amber-400' : 'text-gray-400'}">#${idx + 1}</span>
                         <span class="font-bold text-white">${g.name}</span>
-                        <span class="text-xs text-red-400 font-semibold">(${g.members})</span>
+                        <span class="text-xs text-red-400 font-semibold">(${g.config.members})</span>
                         <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">${g.kills}/${g.total}M</span>
                         <span class="text-xs text-gray-400">World #${g.worldRank === 999999 ? 'N/A' : g.worldRank}</span>
                     </div>
                 `).join('');
             }
+
+            // Re-order Panels in Main Grid & Update Yellow Rank Badges
+            const gridContainer = document.getElementById("guilds-grid");
+            guildData.forEach((g, idx) => {
+                const rankNum = idx + 1;
+                
+                // Update yellow badge inside panel header
+                const badgeEl = document.getElementById(g.config.badgeId);
+                if (badgeEl) {
+                    badgeEl.textContent = `#${rankNum}`;
+                }
+
+                // Move panel element to enforce sorted order in Grid DOM
+                const panelEl = document.getElementById(g.config.panelId);
+                if (panelEl && gridContainer) {
+                    gridContainer.appendChild(panelEl);
+                }
+            });
         }
 
         updateGuildStats();
