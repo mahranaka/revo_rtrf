@@ -17,7 +17,7 @@
             ⚔️ Race to World First — Live Tracker
         </h1>
         <div class="text-sm text-gray-400">
-            Real-Time Streams & Warcraft Logs Embeds
+            Real-Time Streams & Warcraft Logs Integration
         </div>
     </header>
 
@@ -43,24 +43,24 @@
                 <div id="twitch-embed-march" class="w-full h-full"></div>
             </div>
 
-            <!-- Guild Best Progress Tile -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2">
-                <iframe 
-                    src="https://www.warcraftlogs.com/embed/guild-progress-tile/53?difficulty=5&guild=605355" 
-                    title="Axon Terminal Progress Tile" 
-                    class="w-full h-[180px] border-0"
-                    loading="lazy">
-                </iframe>
-            </div>
-
-            <!-- Per Pull Chart Widget -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2">
-                <iframe 
-                    src="https://www.warcraftlogs.com/embed/fight-percentage-per-pull-chart/53?difficulty=5&guilds=605355&color=%23517fa5&xAxis=pull" 
-                    title="Axon Terminal Pull Chart" 
-                    class="w-full h-[320px] border-0"
-                    loading="lazy">
-                </iframe>
+            <!-- Warcraft Logs Panel Links & Quick Progress -->
+            <div class="bg-gray-950 rounded-lg border border-gray-800 p-4 flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-gray-200">Warcraft Logs Direct Widgets</span>
+                    <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded">Live Linked</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.warcraftlogs.com/guild/progress/605355?zone=53" target="_blank" 
+                       class="flex flex-col items-center justify-center p-3 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg text-center transition group">
+                        <span class="text-xs text-gray-400 group-hover:text-amber-400">Boss Progress</span>
+                        <span class="text-sm font-bold text-amber-300">Live Tier Progress ↗</span>
+                    </a>
+                    <a href="https://www.warcraftlogs.com/guild/reports-list/605355" target="_blank" 
+                       class="flex flex-col items-center justify-center p-3 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg text-center transition group">
+                        <span class="text-xs text-gray-400 group-hover:text-amber-400">Pull Logs</span>
+                        <span class="text-sm font-bold text-amber-300">Recent Combat Logs ↗</span>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -83,24 +83,24 @@
                 <div id="twitch-embed-zheen" class="w-full h-full"></div>
             </div>
 
-            <!-- Guild Best Progress Tile -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2">
-                <iframe 
-                    src="https://www.warcraftlogs.com/embed/guild-progress-tile/53?difficulty=5&guild=767263" 
-                    title="Save The Wife Progress Tile" 
-                    class="w-full h-[180px] border-0"
-                    loading="lazy">
-                </iframe>
-            </div>
-
-            <!-- Per Pull Chart Widget -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2">
-                <iframe 
-                    src="https://www.warcraftlogs.com/embed/fight-percentage-per-pull-chart/53?difficulty=5&guilds=767263&color=%23e59232&xAxis=pull" 
-                    title="Save The Wife Pull Chart" 
-                    class="w-full h-[320px] border-0"
-                    loading="lazy">
-                </iframe>
+            <!-- Warcraft Logs Panel Links & Quick Progress -->
+            <div class="bg-gray-950 rounded-lg border border-gray-800 p-4 flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-gray-200">Warcraft Logs Direct Widgets</span>
+                    <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded">Live Linked</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.warcraftlogs.com/guild/id/767263" target="_blank" 
+                       class="flex flex-col items-center justify-center p-3 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg text-center transition group">
+                        <span class="text-xs text-gray-400 group-hover:text-amber-400">Boss Progress</span>
+                        <span class="text-sm font-bold text-amber-300">Live Tier Progress ↗</span>
+                    </a>
+                    <a href="https://www.warcraftlogs.com/guild/reports-list/767263" target="_blank" 
+                       class="flex flex-col items-center justify-center p-3 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg text-center transition group">
+                        <span class="text-xs text-gray-400 group-hover:text-amber-400">Pull Logs</span>
+                        <span class="text-sm font-bold text-amber-300">Recent Combat Logs ↗</span>
+                    </a>
+                </div>
             </div>
         </section>
 
