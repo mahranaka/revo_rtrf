@@ -16,6 +16,22 @@
             transform: scale(0.72);
             transform-origin: top left;
         }
+
+        /* News Ticker Scrolling Animation */
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-ticker {
+            display: flex;
+            width: max-content;
+            animation: ticker 30s linear infinite;
+        }
+
+        .animate-ticker:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans bg-[#181616] text-gray-100">
@@ -36,30 +52,30 @@
         </div>
     </header>
 
-    <!-- Top Standings & Live Event Feed Banner -->
-    <section class="bg-[#222020] border-b border-[#383333] px-6 py-3 w-full shadow-md">
-        <div class="max-w-[1920px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
-            
-            <!-- Left: Leaderboard -->
-            <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-                <div class="flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400 whitespace-nowrap">
-                    🏆 Live Standings
-                </div>
-                <div id="leaderboard-container" class="flex flex-wrap items-center gap-2 text-sm w-full sm:w-auto">
-                    <span class="text-xs text-gray-500 animate-pulse">Calculating standings...</span>
+    <!-- Top Standings News Ticker & RWF Event Feed Banner -->
+    <section class="bg-[#222020] border-b border-[#383333] py-2.5 px-4 w-full shadow-md flex flex-col xl:flex-row items-center justify-between gap-4 overflow-hidden">
+        
+        <!-- Left: News Ticker -->
+        <div class="flex items-center w-full xl:w-auto overflow-hidden">
+            <div class="px-3 py-1 bg-[#181616] rounded-lg border border-[#383333] z-10 flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-amber-400 whitespace-nowrap shadow-md shrink-0 mr-2">
+                🏆 STANDINGS
+            </div>
+            <div class="overflow-hidden w-full relative flex items-center">
+                <div id="leaderboard-ticker-wrapper" class="w-full">
+                    <span class="text-xs text-gray-500 animate-pulse px-4">Calculating standings...</span>
                 </div>
             </div>
-
-            <!-- Right: Dynamic RWF Event Feed Widget -->
-            <div class="w-full lg:w-[480px] h-[75px] bg-[#181616] rounded-lg border border-[#383333] overflow-hidden flex items-center justify-center">
-                <iframe 
-                    src="https://raider.io/widgets/rwf-event-feed?raid=latest&difficulty=latest&guild_ids=1642401%2C2072242%2C1577755&types=new_boss%2Cbest_percent%2Cboss_kill&chromargb=transparent" 
-                    class="w-full h-[75px] border-0"
-                    title="Alumni RWF Live Event Feed">
-                </iframe>
-            </div>
-
         </div>
+
+        <!-- Right: Correctly Embedded RWF Event Feed Widget -->
+        <div class="w-full xl:w-[500px] h-[75px] bg-[#181616] rounded-lg border border-[#383333] overflow-hidden flex justify-center items-center shrink-0">
+            <iframe 
+                src="https://raider.io/widgets/rwf-event-feed?raid=latest&difficulty=latest&guild_ids=1642401%2C2072242%2C1577755&types=new_boss%2Cbest_percent%2Cboss_kill&chromargb=transparent" 
+                class="w-full h-[75px] border-0"
+                title="Alumni RWF Live Event Feed">
+            </iframe>
+        </div>
+
     </section>
 
     <!-- Main Grid (Flexbox Container with Order-Sorting to Prevent DOM Reflash) -->
@@ -412,7 +428,7 @@
             timerEl.textContent = `Next sync in ${countdown}s`;
         }, 1000);
 
-        // Fetch Live Guild Overview Stats & Render Sorted Panels & Leaderboard
+        // Fetch Live Guild Overview Stats & Render Sorted Panels & Ticker Leaderboard
         async function updateGuildStats() {
             const guildData = [];
 
@@ -476,11 +492,11 @@
                 return a.worldRank - b.worldRank;
             });
 
-            // Render Top Banner Leaderboard
-            const lbContainer = document.getElementById("leaderboard-container");
-            if (guildData.length > 0) {
-                lbContainer.innerHTML = guildData.map((g, idx) => `
-                    <div class="flex items-center gap-2 bg-[#181616] px-3 py-1 rounded-lg border border-[#383333]">
+            // Render Horizontal Scrolling Ticker (Duplicated to allow seamless infinite loop)
+            const tickerWrapper = document.getElementById("leaderboard-ticker-wrapper");
+            if (guildData.length > 0 && tickerWrapper) {
+                const itemsHtml = guildData.map((g, idx) => `
+                    <div class="flex items-center gap-2 bg-[#181616] px-3 py-1 rounded-lg border border-[#383333] shrink-0 mx-3 shadow-inner">
                         <span class="font-black ${idx === 0 ? 'text-amber-400' : 'text-gray-400'}">#${idx + 1}</span>
                         <span class="font-bold text-white">${g.name}</span>
                         <span class="text-xs text-red-400 font-semibold">(${g.config.members})</span>
@@ -488,6 +504,14 @@
                         <span class="text-xs text-gray-400">World #${g.worldRank === 999999 ? 'N/A' : g.worldRank}</span>
                     </div>
                 `).join('');
+
+                // Render two identical sets side by side to perform endless seamless ticker animation
+                tickerWrapper.innerHTML = `
+                    <div class="animate-ticker">
+                        <div class="flex items-center">${itemsHtml}</div>
+                        <div class="flex items-center">${itemsHtml}</div>
+                    </div>
+                `;
             }
 
             // Dynamically Sort Panels via CSS order (prevents Iframe/Stream reload)
