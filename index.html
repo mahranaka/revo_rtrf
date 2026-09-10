@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Twitch Interactive Player API -->
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <!-- Raider.IO Official Widget Loader -->
+    <script src="https://raider.io/widgets/loader.js" async></script>
 </head>
 <body class="min-h-screen flex flex-col font-sans bg-gray-950 text-gray-100">
 
@@ -80,14 +82,19 @@
                 </div>
             </div>
 
-            <!-- Official Raider.IO Live Boss Progress Widget -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 min-h-[120px]">
-                <iframe 
-                    src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=tarren-mill&guild=Axon+Terminal&boss=latest&period=until_kill&orientation=rect&hide=logo&chromargb=transparent&theme=dragonflight&refresh=60" 
-                    title="Axon Terminal Raider.IO Boss Progress" 
-                    class="w-full h-[120px] border-0"
-                    loading="lazy">
-                </iframe>
+            <!-- Official Raider.IO JS Widget Container -->
+            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 min-h-[120px] flex items-center justify-center">
+                <div class="rio-boss-progress-widget" 
+                     data-region="eu" 
+                     data-realm="tarren-mill" 
+                     data-guild="Axon Terminal" 
+                     data-raid="latest" 
+                     data-difficulty="latest" 
+                     data-boss="latest" 
+                     data-orientation="rect" 
+                     data-theme="dragonflight" 
+                     data-refresh="60">
+                </div>
             </div>
         </section>
 
@@ -153,14 +160,19 @@
                 </div>
             </div>
 
-            <!-- Official Raider.IO Live Boss Progress Widget -->
-            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 min-h-[120px]">
-                <iframe 
-                    src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=twisting-nether&guild=Save+The+Wife&boss=latest&period=until_kill&orientation=rect&hide=logo&chromargb=transparent&theme=dragonflight&refresh=60" 
-                    title="Save The Wife Raider.IO Boss Progress" 
-                    class="w-full h-[120px] border-0"
-                    loading="lazy">
-                </iframe>
+            <!-- Official Raider.IO JS Widget Container -->
+            <div class="bg-gray-950 rounded-lg overflow-hidden border border-gray-800 p-2 min-h-[120px] flex items-center justify-center">
+                <div class="rio-boss-progress-widget" 
+                     data-region="eu" 
+                     data-realm="twisting-nether" 
+                     data-guild="Save The Wife" 
+                     data-raid="latest" 
+                     data-difficulty="latest" 
+                     data-boss="latest" 
+                     data-orientation="rect" 
+                     data-theme="dragonflight" 
+                     data-refresh="60">
+                </div>
             </div>
         </section>
 
