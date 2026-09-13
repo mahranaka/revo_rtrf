@@ -339,6 +339,94 @@
             </div>
         </section>
 
+        <!-- GUILD: Iris -->
+        <section id="panel-iris" class="bg-[#222020] border-2 border-red-900/60 rounded-xl p-4 flex flex-col gap-4 shadow-2xl w-full lg:w-[calc(50%-12px)] relative scroll-mt-6">
+            <div class="flex justify-between items-center border-b border-[#383333] pb-3 flex-wrap gap-2">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span id="rank-badge-iris" class="text-2xl font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded shadow">#--</span>
+                        <h2 class="text-xl font-bold text-amber-300">Iris</h2>
+                        <span class="text-[10px] bg-red-950/80 text-red-300 border border-red-800/60 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                            Ex-Revo: Rosa
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">EU – Quel'Thalas | Streamer: oysttv</p>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <button onclick="toggleChat('chat-oyst')" 
+                            class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">
+                        💬 Toggle Chat
+                    </button>
+                    <a href="https://raider.io/guilds/eu/quelthalas/Iris" 
+                       target="_blank" 
+                       class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">
+                       Raider.IO ↗
+                    </a>
+                    <a href="https://www.warcraftlogs.com/guild/eu/quelthalas/Iris" 
+                       target="_blank" 
+                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
+                       Full WCL ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Video + Collapsible Chat Container -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
+                <div id="container-oyst" class="md:col-span-3 transition-all duration-300">
+                    <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-[#383333]">
+                        <div id="twitch-embed-oyst" class="w-full h-full"></div>
+                    </div>
+                </div>
+                <div id="chat-oyst" class="hidden md:col-span-1 h-[300px] md:h-auto bg-black rounded-lg overflow-hidden border border-[#383333]">
+                    <iframe id="twitch-chat-oyst-frame" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+
+            <!-- Live Overview Panel -->
+            <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded" id="status-iris">Syncing...</span>
+                </div>
+                <div id="content-iris" class="grid grid-cols-3 gap-2">
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                    <div class="bg-[#2a2727] border border-[#383333] p-2 rounded text-center animate-pulse"><div class="h-4 bg-[#383333] rounded"></div></div>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
+                <!-- Boss Progress Tile -->
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
+                    <iframe 
+                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=quelthalas&guild=Iris&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
+                        class="w-full h-[280px] border-0"
+                        title="Iris Raider.IO Progress">
+                    </iframe>
+                </div>
+                <!-- Scaled Health Over Attempt Chart -->
+                <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
+                    <div class="w-[432px] h-[288px] overflow-hidden">
+                        <iframe 
+                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Fquelthalas%2FIris&boss=latest" 
+                            class="rio-chart-scaler border-0"
+                            title="Iris Health Over Attempt">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Large Guild Gear Composition Widget -->
+            <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex justify-center items-center overflow-hidden min-h-[220px]">
+                <iframe 
+                    src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=quelthalas&guild=Iris&scope=role&tier_placement=column&chromargb=transparent" 
+                    class="w-full h-[200px] border-0"
+                    title="Iris Guild Gear Composition">
+                </iframe>
+            </div>
+        </section>
+
         <!-- ADD GUILD SLOT (BIG PLUS SIGN) -->
         <section id="panel-add-guild" class="bg-[#222020]/60 border-2 border-dashed border-[#383333] hover:border-amber-500/60 rounded-xl p-8 flex flex-col items-center justify-center gap-4 min-h-[600px] w-full lg:w-[calc(50%-12px)] transition group cursor-pointer shadow-xl relative">
             
@@ -371,7 +459,8 @@
         const GUILD_CONFIG = {
             "Axon Terminal": { members: "March", panelId: "panel-axon", badgeId: "rank-badge-axon" },
             "Save The Wife": { members: "Zheen, Venzer", panelId: "panel-stw", badgeId: "rank-badge-stw" },
-            "Welcome": { members: "Sam, Treaderz", panelId: "panel-welcome", badgeId: "rank-badge-welcome" }
+            "Welcome": { members: "Sam, Treaderz", panelId: "panel-welcome", badgeId: "rank-badge-welcome" },
+            "Iris": { members: "Rosa", panelId: "panel-iris", badgeId: "rank-badge-iris" }
         };
 
         // Pre-formatted message trigger to Discord user Mahranaka
@@ -401,6 +490,12 @@
             width: "100%", height: "100%", channel: "marchosiases", parent: [currentHostname]
         });
         document.getElementById("twitch-chat-march-frame").src = `https://www.twitch.tv/embed/marchosiases/chat?parent=${currentHostname}&darkpopout`;
+
+        // Init oysttv Stream (Iris)
+        new Twitch.Player("twitch-embed-oyst", {
+            width: "100%", height: "100%", channel: "oysttv", parent: [currentHostname]
+        });
+        document.getElementById("twitch-chat-oyst-frame").src = `https://www.twitch.tv/embed/oysttv/chat?parent=${currentHostname}&darkpopout`;
 
         // Stream Switcher (Save The Wife)
         let stwPlayer = null;
@@ -438,7 +533,11 @@
         // Toggle Chat Sidebars
         function toggleChat(chatId) {
             const chatEl = document.getElementById(chatId);
-            const containerEl = document.getElementById(chatId === 'chat-march' ? 'container-march' : 'container-stw');
+            let containerId = 'container-march';
+            if (chatId === 'chat-stw') containerId = 'container-stw';
+            if (chatId === 'chat-oyst') containerId = 'container-oyst';
+
+            const containerEl = document.getElementById(containerId);
 
             if (chatEl.classList.contains('hidden')) {
                 chatEl.classList.remove('hidden');
@@ -521,6 +620,7 @@
             await fetchSingleGuild("eu", "tarren-mill", "Axon Terminal", "status-axon", "content-axon");
             await fetchSingleGuild("eu", "twisting-nether", "Save The Wife", "status-stw", "content-stw");
             await fetchSingleGuild("eu", "argent-dawn", "Welcome", "status-welcome", "content-welcome");
+            await fetchSingleGuild("eu", "quelthalas", "Iris", "status-iris", "content-iris");
 
             // Sort Guilds: Boss Kills Descending, World Rank Ascending
             guildData.sort((a, b) => {
