@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <!-- Video + Collapsible Chat -->
+            <!-- Stream & Chat -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                 <div id="container-march" class="md:col-span-3 transition-all duration-300">
                     <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-[#383333]">
@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <!-- Live Overview Panel -->
+            <!-- Overview -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
@@ -126,30 +126,20 @@
                 </div>
             </div>
 
-            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <!-- Raider.IO Widgets -->
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
-                    <iframe 
-                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=tarren-mill&guild=Axon+Terminal&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                        class="w-full h-[280px] border-0" title="Axon Terminal Raider.IO Progress">
-                    </iframe>
+                    <iframe src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=tarren-mill&guild=Axon+Terminal&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" class="w-full h-[280px] border-0" title="Axon Terminal Progress"></iframe>
                 </div>
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
                     <div class="w-[432px] h-[288px] overflow-hidden">
-                        <iframe 
-                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftarren-mill%2FAxon+Terminal&boss=latest" 
-                            class="rio-chart-scaler border-0" title="Axon Terminal Health Over Attempt">
-                        </iframe>
+                        <iframe src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftarren-mill%2FAxon+Terminal&boss=latest" class="rio-chart-scaler border-0" title="Axon Terminal Chart"></iframe>
                     </div>
                 </div>
             </div>
 
-            <!-- Large Guild Gear Composition Widget -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex justify-center items-center overflow-hidden min-h-[220px]">
-                <iframe 
-                    src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=tarren-mill&guild=Axon+Terminal&scope=role&tier_placement=column&chromargb=transparent" 
-                    class="w-full h-[200px] border-0" title="Axon Terminal Guild Gear Composition">
-                </iframe>
+                <iframe src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=tarren-mill&guild=Axon+Terminal&scope=role&tier_placement=column&chromargb=transparent" class="w-full h-[200px] border-0" title="Axon Terminal Gear"></iframe>
             </div>
         </section>
 
@@ -169,31 +159,16 @@
                 
                 <div class="flex items-center gap-2">
                     <div class="bg-[#181616] p-1 rounded-lg border border-[#383333] flex gap-1">
-                        <button id="tab-zheen" onclick="switchStream('zheenzz')" 
-                                class="text-xs px-2.5 py-1 rounded font-semibold transition bg-amber-500 text-black">
-                            Zheen
-                        </button>
-                        <button id="tab-venzer" onclick="switchStream('imnotvenzer')" 
-                                class="text-xs px-2.5 py-1 rounded font-semibold text-gray-400 hover:text-white transition">
-                            Venzer
-                        </button>
+                        <button id="tab-zheen" onclick="switchStream('zheenzz')" class="text-xs px-2.5 py-1 rounded font-semibold transition bg-amber-500 text-black">Zheen</button>
+                        <button id="tab-venzer" onclick="switchStream('imnotvenzer')" class="text-xs px-2.5 py-1 rounded font-semibold text-gray-400 hover:text-white transition">Venzer</button>
                     </div>
-                    <button onclick="toggleChat('chat-stw')" 
-                            class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">
-                        💬 Toggle Chat
-                    </button>
-                    <a href="https://raider.io/guilds/eu/twisting-nether/Save%20The%20Wife" target="_blank" 
-                       class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">
-                       Raider.IO ↗
-                    </a>
-                    <a href="https://www.warcraftlogs.com/guild/id/767263" target="_blank" 
-                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
-                       Full WCL ↗
-                    </a>
+                    <button onclick="toggleChat('chat-stw')" class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">💬 Toggle Chat</button>
+                    <a href="https://raider.io/guilds/eu/twisting-nether/Save%20The%20Wife" target="_blank" class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">Raider.IO ↗</a>
+                    <a href="https://www.warcraftlogs.com/guild/id/767263" target="_blank" class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">Full WCL ↗</a>
                 </div>
             </div>
 
-            <!-- Video + Collapsible Chat -->
+            <!-- Stream & Chat -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                 <div id="container-stw" class="md:col-span-3 transition-all duration-300">
                     <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-[#383333]">
@@ -205,7 +180,7 @@
                 </div>
             </div>
 
-            <!-- Live Overview Panel -->
+            <!-- Overview -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
@@ -218,30 +193,20 @@
                 </div>
             </div>
 
-            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <!-- Raider.IO Widgets -->
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
-                    <iframe 
-                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=twisting-nether&guild=Save+The+Wife&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                        class="w-full h-[280px] border-0" title="Save The Wife Raider.IO Progress">
-                    </iframe>
+                    <iframe src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=twisting-nether&guild=Save+The+Wife&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" class="w-full h-[280px] border-0" title="Save The Wife Progress"></iframe>
                 </div>
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
                     <div class="w-[432px] h-[288px] overflow-hidden">
-                        <iframe 
-                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftwisting-nether%2FSave+The+Wife&boss=latest" 
-                            class="rio-chart-scaler border-0" title="Save The Wife Health Over Attempt">
-                        </iframe>
+                        <iframe src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Ftwisting-nether%2FSave+The+Wife&boss=latest" class="rio-chart-scaler border-0" title="Save The Wife Chart"></iframe>
                     </div>
                 </div>
             </div>
 
-            <!-- Large Guild Gear Composition Widget -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex justify-center items-center overflow-hidden min-h-[220px]">
-                <iframe 
-                    src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=twisting-nether&guild=Save+The+Wife&scope=role&tier_placement=column&chromargb=transparent" 
-                    class="w-full h-[200px] border-0" title="Save The Wife Guild Gear Composition">
-                </iframe>
+                <iframe src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=twisting-nether&guild=Save+The+Wife&scope=role&tier_placement=column&chromargb=transparent" class="w-full h-[200px] border-0" title="Save The Wife Gear"></iframe>
             </div>
         </section>
 
@@ -259,14 +224,8 @@
                     <p class="text-xs text-gray-400 mt-1">EU – Argent Dawn | Streamer: Offline</p>
                 </div>
                 <div class="flex gap-2 items-center">
-                    <a href="https://raider.io/guilds/eu/argent-dawn/Welcome" target="_blank" 
-                       class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">
-                       Raider.IO ↗
-                    </a>
-                    <a href="https://www.warcraftlogs.com/guild/eu/argent-dawn/Welcome" target="_blank" 
-                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
-                       Full WCL ↗
-                    </a>
+                    <a href="https://raider.io/guilds/eu/argent-dawn/Welcome" target="_blank" class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">Raider.IO ↗</a>
+                    <a href="https://www.warcraftlogs.com/guild/eu/argent-dawn/Welcome" target="_blank" class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">Full WCL ↗</a>
                 </div>
             </div>
 
@@ -277,7 +236,7 @@
                 <span class="text-xs text-gray-600">Tracking progress via Raider.IO live telemetry</span>
             </div>
 
-            <!-- Live Overview Panel -->
+            <!-- Overview -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
@@ -290,30 +249,20 @@
                 </div>
             </div>
 
-            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <!-- Raider.IO Widgets -->
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
-                    <iframe 
-                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=argent-dawn&guild=Welcome&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                        class="w-full h-[280px] border-0" title="Welcome Raider.IO Progress">
-                    </iframe>
+                    <iframe src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=argent-dawn&guild=Welcome&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" class="w-full h-[280px] border-0" title="Welcome Progress"></iframe>
                 </div>
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
                     <div class="w-[432px] h-[288px] overflow-hidden">
-                        <iframe 
-                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Fargent-dawn%2FWelcome&boss=latest" 
-                            class="rio-chart-scaler border-0" title="Welcome Health Over Attempt">
-                        </iframe>
+                        <iframe src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Fargent-dawn%2FWelcome&boss=latest" class="rio-chart-scaler border-0" title="Welcome Chart"></iframe>
                     </div>
                 </div>
             </div>
 
-            <!-- Large Guild Gear Composition Widget -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex justify-center items-center overflow-hidden min-h-[220px]">
-                <iframe 
-                    src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=argent-dawn&guild=Welcome&scope=role&tier_placement=column&chromargb=transparent" 
-                    class="w-full h-[200px] border-0" title="Welcome Guild Gear Composition">
-                </iframe>
+                <iframe src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=argent-dawn&guild=Welcome&scope=role&tier_placement=column&chromargb=transparent" class="w-full h-[200px] border-0" title="Welcome Gear"></iframe>
             </div>
         </section>
 
@@ -331,22 +280,13 @@
                     <p class="text-xs text-gray-400 mt-1">EU – Quel'Thalas | Streamer: oysttv</p>
                 </div>
                 <div class="flex gap-2 items-center">
-                    <button onclick="toggleChat('chat-oyst')" 
-                            class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">
-                        💬 Toggle Chat
-                    </button>
-                    <a href="https://raider.io/guilds/eu/quelthalas/Iris" target="_blank" 
-                       class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">
-                       Raider.IO ↗
-                    </a>
-                    <a href="https://www.warcraftlogs.com/guild/eu/quelthalas/Iris" target="_blank" 
-                       class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">
-                       Full WCL ↗
-                    </a>
+                    <button onclick="toggleChat('chat-oyst')" class="text-xs bg-[#2a2727] hover:bg-[#383333] text-gray-300 border border-[#383333] px-3 py-1.5 rounded transition">💬 Toggle Chat</button>
+                    <a href="https://raider.io/guilds/eu/quelthalas/Iris" target="_blank" class="text-xs bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 px-3 py-1.5 rounded transition">Raider.IO ↗</a>
+                    <a href="https://www.warcraftlogs.com/guild/eu/quelthalas/Iris" target="_blank" class="text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 rounded transition">Full WCL ↗</a>
                 </div>
             </div>
 
-            <!-- Video + Collapsible Chat -->
+            <!-- Stream & Chat -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                 <div id="container-oyst" class="md:col-span-3 transition-all duration-300">
                     <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-[#383333]">
@@ -358,7 +298,7 @@
                 </div>
             </div>
 
-            <!-- Live Overview Panel -->
+            <!-- Overview -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Mythic Overview</span>
@@ -371,30 +311,20 @@
                 </div>
             </div>
 
-            <!-- Side-by-Side Raider.IO Widgets Container -->
+            <!-- Raider.IO Widgets -->
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-3 bg-[#181616] rounded-lg border border-[#383333] p-3 h-[300px] items-center justify-between overflow-hidden">
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
-                    <iframe 
-                        src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=quelthalas&guild=Iris&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" 
-                        class="w-full h-[280px] border-0" title="Iris Raider.IO Progress">
-                    </iframe>
+                    <iframe src="https://raider.io/widgets/boss-progress?raid=latest&name_style=logo&difficulty=latest&region=eu&realm=quelthalas&guild=Iris&boss=latest&period=until_kill&orientation=rect&hide=&chromargb=transparent&theme=dragonflight" class="w-full h-[280px] border-0" title="Iris Progress"></iframe>
                 </div>
                 <div class="w-full h-full flex justify-center items-center overflow-hidden rounded">
                     <div class="w-[432px] h-[288px] overflow-hidden">
-                        <iframe 
-                            src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Fquelthalas%2FIris&boss=latest" 
-                            class="rio-chart-scaler border-0" title="Iris Health Over Attempt">
-                        </iframe>
+                        <iframe src="https://raider.io/widgets/health-over-attempt?raid=latest&type=attempt&period=until_kill&difficulty=mythic&guilds=eu%2Fquelthalas%2FIris&boss=latest" class="rio-chart-scaler border-0" title="Iris Chart"></iframe>
                     </div>
                 </div>
             </div>
 
-            <!-- Large Guild Gear Composition Widget -->
             <div class="bg-[#181616] rounded-lg border border-[#383333] p-3 flex justify-center items-center overflow-hidden min-h-[220px]">
-                <iframe 
-                    src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=quelthalas&guild=Iris&scope=role&tier_placement=column&chromargb=transparent" 
-                    class="w-full h-[200px] border-0" title="Iris Guild Gear Composition">
-                </iframe>
+                <iframe src="https://raider.io/widgets/guild-gear-composition?raid=latest&min_tier_tokens=1&region=eu&realm=quelthalas&guild=Iris&scope=role&tier_placement=column&chromargb=transparent" class="w-full h-[200px] border-0" title="Iris Gear"></iframe>
             </div>
         </section>
 
